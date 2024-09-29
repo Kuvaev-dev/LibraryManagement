@@ -15,7 +15,7 @@
     <AssemblyName>LibraryManagementApp</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress />
+    <Use64BitIISExpress>false</Use64BitIISExpress>
     <IISExpressSSLPort>44345</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -67,10 +67,31 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\books\b1.jpg" />
+    <Content Include="assets\books\b2.jpg" />
+    <Content Include="assets\books\b3.jpg" />
+    <Content Include="assets\books\b4.jpg" />
+    <Content Include="assets\books\b5.jpg" />
+    <Content Include="assets\imgs\adminuser.png" />
+    <Content Include="assets\imgs\book-online.png" />
+    <Content Include="assets\imgs\books.png" />
+    <Content Include="assets\imgs\books1.png" />
+    <Content Include="assets\imgs\defaulters-list.png" />
+    <Content Include="assets\imgs\digital-data.png" />
+    <Content Include="assets\imgs\digital-inventory.png" />
+    <Content Include="assets\imgs\generaluser.png" />
+    <Content Include="assets\imgs\home-bg.jpg" />
+    <Content Include="assets\imgs\in-homepage-banner.jpg" />
+    <Content Include="assets\imgs\library.png" />
+    <Content Include="assets\imgs\publisher.png" />
+    <Content Include="assets\imgs\search-online.png" />
+    <Content Include="assets\imgs\sign-up.png" />
+    <Content Include="assets\imgs\writer.png" />
     <Content Include="bootstrap\css\bootstrap.min.css" />
     <Content Include="bootstrap\js\bootstrap.min.js" />
     <Content Include="bootstrap\js\jquery-3.7.1.slim.min.js" />
     <Content Include="bootstrap\js\popper.min.js" />
+    <Content Include="css\customstylesheet.css" />
     <Content Include="datatables\css\dataTables.dataTables.min.css" />
     <Content Include="datatables\js\dataTables.min.js" />
     <Content Include="fontawesome\css\all.css" />
@@ -2160,9 +2181,24 @@
     <Content Include="fontawesome\svgs\solid\yin-yang.svg" />
     <Content Include="fontawesome\svgs\solid\z.svg" />
     <Content Include="Web.config" />
+    <Content Include="WebForm1.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Library.Master.cs">
+      <DependentUpon>Library.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Library.Master.designer.cs">
+      <DependentUpon>Library.Master</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fontawesome\less\brands.less" />
@@ -2218,6 +2254,7 @@
     <Content Include="fontawesome\webfonts\fa-solid-900.woff2" />
     <Content Include="fontawesome\webfonts\fa-v4compatibility.ttf" />
     <Content Include="fontawesome\webfonts\fa-v4compatibility.woff2" />
+    <Content Include="Library.Master" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2230,6 +2267,9 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
@@ -2248,6 +2288,9 @@
           <CustomServerUrl>
           </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <servers defaultServer="SelfHostServer">
+            <server name="SelfHostServer" exePath="" cmdArgs="" url="http://localhost:56398/" workingDir="" />
+          </servers>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
