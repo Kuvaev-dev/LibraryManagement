@@ -71,19 +71,21 @@
         </div>
         <%--Main Content--%>
         <div>
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+
+            </asp:ContentPlaceHolder>
         </div>
         <footer>
             <div id="footer1" class="container-fluid">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                        <p>
-                            <asp:LinkButton class="nav-link" ID="LinkButton6" runat="server" >Admin Login</asp:LinkButton>
-                            <asp:LinkButton class="nav-link" ID="LinkButton11" runat="server" >Author Management</asp:LinkButton>
-                            <asp:LinkButton class="nav-link" ID="LinkButton12" runat="server" >Publisher Management</asp:LinkButton>
-                            <asp:LinkButton class="nav-link" ID="LinkButton8" runat="server" >Book Inventory</asp:LinkButton>
-                            <asp:LinkButton class="nav-link" ID="LinkButton9" runat="server" >Book Issuing</asp:LinkButton>
-                            <asp:LinkButton class="nav-link" ID="LinkButton10" runat="server" >Member Management</asp:LinkButton>
+                        <p class="footerlinks">
+                            <asp:LinkButton ID="LinkButton6" CssClass="footer-link" runat="server">Admin Login</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton11" CssClass="footer-link" runat="server">Author Management</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton12" CssClass="footer-link" runat="server">Publisher Management</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton8" CssClass="footer-link" runat="server">Book Inventory</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton9" CssClass="footer-link" runat="server">Book Issuing</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton10" CssClass="footer-link" runat="server">Member Management</asp:LinkButton>
                         </p>
                     </div>
                 </div>
@@ -91,7 +93,7 @@
             <div id="footer2" class="container-fluid">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                        <p style="color:whitesmoke">&copy All rights Reserved. <a class="footerlinks" href="#" target="_blank">Kuvaev-dev</a></p>
+                        <p style="color: whitesmoke">&copy All rights Reserved. <a class="footerlinks" href="#" target="_blank">Kuvaev-dev</a></p>
                     </div>
                 </div>
             </div>
