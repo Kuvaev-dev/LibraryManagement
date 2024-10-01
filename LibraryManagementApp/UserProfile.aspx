@@ -1,10 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Library.Master" AutoEventWireup="true" CodeBehind="UserSignUp.aspx.cs" Inherits="LibraryManagementApp.UserSignUp" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Library.Master" AutoEventWireup="true" CodeBehind="UserProfile.aspx.cs" Inherits="LibraryManagementApp.UserProfile" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8 mx-auto">
+            <div class="col-md-5">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -17,7 +17,9 @@
                         <div class="row">
                             <div class="col">
                                 <center>
-                                    <h4>Member Sign Up</h4>
+                                    <h4>Your Profile</h4>
+                                    <span>Account Status - </span>
+                                    <asp:Label ID="Label1" CssClass="badge rounded-pill text-bg-info" runat="server" Text="Status"></asp:Label>
                                 </center>
                             </div>
                         </div>
@@ -59,7 +61,7 @@
                                 <label>State</label>
                                 <div class="form-group">
                                     <asp:DropDownList ID="DropDownList1" CssClass="form-control" runat="server">
-                                        <asp:ListItem Text="Select" Value="select"/>
+                                        <asp:ListItem Text="Select" Value="select" />
                                     </asp:DropDownList>
                                 </div>
                             </div>
@@ -94,29 +96,68 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label>User ID</label>
                                 <div class="form-group">
-                                    <asp:TextBox ID="TextBox8" CssClass="form-control" placeholder="User ID" runat="server"></asp:TextBox>
+                                    <asp:TextBox ID="TextBox8" CssClass="form-control" placeholder="User ID" runat="server" ReadOnly="true"></asp:TextBox>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <label>Password</label>
+                            <div class="col-md-4">
+                                <label>Old Password</label>
                                 <div class="form-group">
-                                    <asp:TextBox ID="TextBox9" CssClass="form-control" placeholder="Password" TextMode="Email" runat="server"></asp:TextBox>
+                                    <asp:TextBox ID="TextBox9" CssClass="form-control" placeholder="Password" TextMode="Email" runat="server" ReadOnly="true"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>New Password</label>
+                                <div class="form-group">
+                                    <asp:TextBox ID="TextBox10" CssClass="form-control" placeholder="Password" TextMode="Email" runat="server"></asp:TextBox>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col">
-                                <div class="form-group text-center">
-                                    <asp:Button ID="Button1" class="btn btn-success btn-block btn-lg" runat="server" Text="Sign Up" />
-                                </div>
+                            <div class="col-8 mx-auto">
+                                <center>
+                                    <div class="form-group">
+                                        <asp:Button ID="Button1" class="btn btn-primary btn-block btn-lg" runat="server" Text="Update" />
+                                    </div>
+                                </center>
                             </div>
                         </div>
                     </div>
                 </div>
                 <a href="Home.aspx"><< Back to Home</a>
+            </div>
+            <div class="col-md-7">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <center>
+                                    <img src="assets/imgs/books1.png" width="100px"/>
+                                </center>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <center>
+                                    <h4>Your Issued Books</h4>
+                                    <asp:Label ID="Label2" CssClass="badge rounded-pill text-bg-info" runat="server" Text="Your Books Info"></asp:Label>
+                                </center>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <asp:GridView CssClass="table table-striped table-bordered" ID="GridView1" runat="server"></asp:GridView>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
