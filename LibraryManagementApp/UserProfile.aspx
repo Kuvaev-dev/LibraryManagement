@@ -19,7 +19,7 @@
                                 <center>
                                     <h4>Your Profile</h4>
                                     <span>Account Status - </span>
-                                    <asp:Label ID="Label1" CssClass="badge rounded-pill text-bg-info" runat="server" Text="Status"></asp:Label>
+                                    <asp:Label ID="Label1" CssClass="badge rounded-pill text-bg-info text-white" runat="server" Text="Status"></asp:Label>
                                 </center>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                             <div class="col">
                                 <center>
                                     <div class="form-group text-center">
-                                        <span class="badge rounded-pill text-bg-info">Login Credentials</span>
+                                        <span class="badge rounded-pill text-bg-info text-white">Login Credentials</span>
                                     </div>
                                 </center>
                             </div>
@@ -142,7 +142,7 @@
                             <div class="col">
                                 <center>
                                     <h4>Your Issued Books</h4>
-                                    <asp:Label ID="Label2" CssClass="badge rounded-pill text-bg-info" runat="server" Text="Your Books Info"></asp:Label>
+                                    <asp:Label ID="Label2" CssClass="badge rounded-pill text-bg-info text-white" runat="server" Text="Your Books Info"></asp:Label>
                                 </center>
                             </div>
                         </div>
