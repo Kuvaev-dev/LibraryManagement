@@ -68,8 +68,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdminAuthorManagement.aspx" />
+    <Content Include="AdminBookInventory.aspx" />
     <Content Include="AdminBookIssuing.aspx" />
     <Content Include="AdminLogin.aspx" />
+    <Content Include="AdminMemberManagement.aspx" />
     <Content Include="AdminPublisherManagement.aspx" />
     <Content Include="assets\books\b1.jpg" />
     <Content Include="assets\books\b2.jpg" />
@@ -2199,6 +2201,13 @@
     <Compile Include="AdminAuthorManagement.aspx.designer.cs">
       <DependentUpon>AdminAuthorManagement.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AdminBookInventory.aspx.cs">
+      <DependentUpon>AdminBookInventory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminBookInventory.aspx.designer.cs">
+      <DependentUpon>AdminBookInventory.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AdminBookIssuing.aspx.cs">
       <DependentUpon>AdminBookIssuing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2212,6 +2221,10 @@
     </Compile>
     <Compile Include="AdminLogin.aspx.designer.cs">
       <DependentUpon>AdminLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminMemberManagement.aspx.cs">
+      <DependentUpon>AdminMemberManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AdminPublisherManagement.aspx.cs">
       <DependentUpon>AdminPublisherManagement.aspx</DependentUpon>
