@@ -80,12 +80,12 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                         <p class="footerlinks">
-                            <asp:LinkButton ID="LinkButton6" CssClass="footer-link" runat="server" OnClick="LinkButton6_Click">Admin Login</asp:LinkButton>
-                            <asp:LinkButton ID="LinkButton11" CssClass="footer-link" runat="server" OnClick="LinkButton11_Click" Visible="false">Author Management</asp:LinkButton>
-                            <asp:LinkButton ID="LinkButton12" CssClass="footer-link" runat="server" OnClick="LinkButton12_Click" Visible="false">Publisher Management</asp:LinkButton>
-                            <asp:LinkButton ID="LinkButton8" CssClass="footer-link" runat="server" OnClick="LinkButton8_Click" Visible="false">Book Inventory</asp:LinkButton>
-                            <asp:LinkButton ID="LinkButton9" CssClass="footer-link" runat="server" OnClick="LinkButton9_Click" Visible="false">Book Issuing</asp:LinkButton>
-                            <asp:LinkButton ID="LinkButton10" CssClass="footer-link" runat="server" OnClick="LinkButton10_Click" Visible="false">Member Management</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton6" CssClass="footer-link" runat="server" OnClick="LinkButton6_Click" ForeColor="White" Font-Underline="false">Admin Login</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton11" CssClass="footer-link" runat="server" OnClick="LinkButton11_Click" Visible="false" ForeColor="White" Font-Underline="false">Author Management</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton12" CssClass="footer-link" runat="server" OnClick="LinkButton12_Click" Visible="false" ForeColor="White" Font-Underline="false">Publisher Management</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton8" CssClass="footer-link" runat="server" OnClick="LinkButton8_Click" Visible="false" ForeColor="White" Font-Underline="false">Book Inventory</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton9" CssClass="footer-link" runat="server" OnClick="LinkButton9_Click" Visible="false" ForeColor="White" Font-Underline="false">Book Issuing</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton10" CssClass="footer-link" runat="server" OnClick="LinkButton10_Click" Visible="false" ForeColor="White" Font-Underline="false">Member Management</asp:LinkButton>
                         </p>
                     </div>
                 </div>
@@ -93,7 +93,7 @@
             <div id="footer2" class="container-fluid">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                        <p style="color: whitesmoke">&copy All rights Reserved. <a class="footerlinks" href="https://github.com/Kuvaev-dev" target="_blank">Kuvaev-dev</a></p>
+                        <p style="color: whitesmoke">&copy All rights Reserved. <LinkButton CssClass="footerlinks" ForeColor="White" Font-Underline="false" href="https://github.com/Kuvaev-dev" target="_blank">Kuvaev-dev</LinkButton></p>
                     </div>
                 </div>
             </div>
