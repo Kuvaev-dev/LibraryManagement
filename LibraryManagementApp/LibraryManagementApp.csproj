@@ -94,6 +94,7 @@
     <Content Include="assets\imgs\search-online.png" />
     <Content Include="assets\imgs\sign-up.png" />
     <Content Include="assets\imgs\writer.png" />
+    <Content Include="book_inventory\books1.png" />
     <Content Include="bootstrap\css\bootstrap.min.css" />
     <Content Include="bootstrap\js\bootstrap.min.js" />
     <Content Include="bootstrap\js\jquery-3.7.1.slim.min.js" />

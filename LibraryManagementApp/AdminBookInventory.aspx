@@ -1,5 +1,20 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Library.Master" AutoEventWireup="true" CodeBehind="AdminBookInventory.aspx.cs" Inherits="LibraryManagementApp.AdminBookInventory" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.table').prepend($('<thead></thead>').append($(this).find('tr:first'))).dataTable();
+        })
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#imgview').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid">
@@ -17,7 +32,7 @@
                         <div class="row">
                             <div class="col">
                                 <center>
-                                    <img src="assets/imgs/books.png" width="100px"/>
+                                    <img id="imgview" src="book_inventory/books.png" style="width:100px; height:150px;"/>
                                 </center>
                             </div>
                         </div>
@@ -28,7 +43,7 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <asp:FileUpload ID="FileUpload1" CssClass="form-control" runat="server" />
+                                <asp:FileUpload ID="FileUpload1" CssClass="form-control" runat="server" onchange="readURL(this);"/>
                             </div>
                         </div>
                         <div class="row">
@@ -37,7 +52,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <asp:TextBox ID="TextBox1" CssClass="form-control" runat="server" placeholder="Member ID"></asp:TextBox>
-                                        <asp:LinkButton runat="server" CssClass="btn btn-primary">
+                                        <asp:LinkButton runat="server" CssClass="btn btn-primary" OnClick="Unnamed_Click">
                                             <i class="fa-solid fa-circle-check"></i>
                                         </asp:LinkButton>
                                     </div>
@@ -136,13 +151,13 @@
                         </div>
                         <div class="row">
                             <div class="col-4">
-                                <asp:Button ID="Button2" runat="server" Text="Add" class="btn btn-lg btn-block btn-success"/>
+                                <asp:Button ID="Button2" runat="server" Text="Add" class="btn btn-lg btn-block btn-success" OnClick="Button2_Click"/>
                             </div>
                             <div class="col-4">
-                                <asp:Button ID="Button3" runat="server" Text="Update" class="btn btn-lg btn-block btn-warning"/>
+                                <asp:Button ID="Button3" runat="server" Text="Update" class="btn btn-lg btn-block btn-warning" OnClick="Button3_Click"/>
                             </div>
                             <div class="col-4">
-                                <asp:Button ID="Button1" runat="server" Text="Delete" class="btn btn-lg btn-block btn-danger"/>
+                                <asp:Button ID="Button1" runat="server" Text="Delete" class="btn btn-lg btn-block btn-danger" OnClick="Button1_Click"/>
                             </div>
                         </div>
                     </div>
@@ -166,7 +181,78 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <asp:GridView CssClass="table table-striped table-bordered" ID="GridView1" runat="server"></asp:GridView>
+                                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:elibraryDB %>" SelectCommand="SELECT * FROM [book_master_tbl]"></asp:SqlDataSource>
+                                <asp:GridView CssClass="table table-striped table-bordered" ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="book_id" DataSourceID="SqlDataSource1">
+                                    <Columns>
+                                        <asp:BoundField DataField="book_id" HeaderText="ID" ReadOnly="True" SortExpression="book_id" >
+                                        <ControlStyle Font-Bold="True" />
+                                        </asp:BoundField>
+                                        <asp:TemplateField>
+                                            <ItemTemplate>
+                                                <div class="container-fluid">
+                                                    <div class="row">
+                                                        <div class="col-lg-10">
+                                                           <div class="row">
+                                                               <div class="col-12">
+                                                                   <asp:Label ID="Label1" runat="server" Text='<%# Eval("book_name") %>' Font-Bold="True" Font-Size="X-Large"></asp:Label>
+                                                               </div>
+                                                           </div>
+                                                            <div class="row">
+                                                               <div class="col-12">
+
+                                                                   Author -
+                                                                   <asp:Label ID="Label2" runat="server" Font-Bold="True" Text='<%# Eval("author_name") %>'></asp:Label>
+                                                                   &nbsp;| Genre -
+                                                                   <asp:Label ID="Label3" runat="server" Font-Bold="True" Text='<%# Eval("genre") %>'></asp:Label>
+                                                                   &nbsp;| Language -
+                                                                   <asp:Label ID="Label4" runat="server" Font-Bold="True" Text='<%# Eval("language") %>'></asp:Label>
+
+                                                               </div>
+                                                           </div>
+                                                            <div class="row">
+                                                               <div class="col-12">
+
+                                                                   Publisher -
+                                                                   <asp:Label ID="Label5" runat="server" Font-Bold="True" Text='<%# Eval("publisher_name") %>'></asp:Label>
+                                                                   &nbsp;| Publish Date -
+                                                                   <asp:Label ID="Label6" runat="server" Font-Bold="True" Text='<%# Eval("publish_date") %>'></asp:Label>
+                                                                   &nbsp;| Pages -
+                                                                   <asp:Label ID="Label7" runat="server" Font-Bold="True" Text='<%# Eval("no_of_pages") %>'></asp:Label>
+                                                                   &nbsp;| Edition -
+                                                                   <asp:Label ID="Label8" runat="server" Font-Bold="True" Text='<%# Eval("edition") %>'></asp:Label>
+
+                                                               </div>
+                                                           </div>
+                                                            <div class="row">
+                                                               <div class="col-12">
+
+                                                                   Cost -
+                                                                   <asp:Label ID="Label9" runat="server" Font-Bold="True" Text='<%# Eval("book_cost") %>'></asp:Label>
+                                                                   &nbsp;| Actual Stock -
+                                                                   <asp:Label ID="Label10" runat="server" Font-Bold="True" Text='<%# Eval("actual_stock") %>'></asp:Label>
+                                                                   &nbsp;| Avaliable Stock -
+                                                                   <asp:Label ID="Label11" runat="server" Font-Bold="True" Text='<%# Eval("current_stock") %>'></asp:Label>
+
+                                                               </div>
+                                                           </div>
+                                                            <div class="row">
+                                                               <div class="col-12">
+
+                                                                   Description -
+                                                                   <asp:Label ID="Label12" runat="server" Font-Bold="True" Font-Size="Smaller" Text='<%# Eval("book_description") %>'></asp:Label>
+
+                                                               </div>
+                                                           </div>
+                                                        </div>
+                                                        <div class="col-lg-2">
+                                                             <asp:Image CssClass="img-fluid p-2" ID="Image1" runat="server" ImageUrl='<%# Eval("book_img_link") %>' />
+                                                        </div>
+                                                    </div>
+                                                </div>   
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
                             </div>
                         </div>
                     </div>
