@@ -38,7 +38,7 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                </hr>
+                                <hr>
                             </div>
                         </div>
                         <div class="row">
@@ -47,18 +47,16 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <label>Book ID</label>
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <asp:TextBox ID="TextBox1" CssClass="form-control" runat="server" placeholder="Member ID"></asp:TextBox>
-                                        <asp:LinkButton runat="server" CssClass="btn btn-primary" OnClick="Unnamed_Click">
-                                            <i class="fa-solid fa-circle-check"></i>
-                                        </asp:LinkButton>
+                                        <asp:TextBox ID="TextBox1" CssClass="form-control" runat="server" placeholder="Book ID"></asp:TextBox>
+                                        <asp:Button ID="Button4" runat="server" Text="Go" CssClass="form-control btn btn-primary" OnClick="Button4_Click"/>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-8">
                                 <label>Book Name</label>
                                 <div class="form-group">
                                     <asp:TextBox ID="TextBox2" CssClass="form-control" placeholder="Book Name" runat="server" ReadOnly="true"></asp:TextBox>

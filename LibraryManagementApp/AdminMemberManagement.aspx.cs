@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace LibraryManagementApp
 {
@@ -84,15 +78,15 @@ namespace LibraryManagementApp
                 {
                     while (reader.Read())
                     {
-                        TextBox2.Text = reader.GetValue(0);
-                        TextBox7.Text = reader.GetValue(10);
-                        TextBox8.Text = reader.GetValue(1);
-                        TextBox3.Text = reader.GetValue(2);
-                        TextBox4.Text = reader.GetValue(3);
-                        TextBox9.Text = reader.GetValue(4);
-                        TextBox10.Text = reader.GetValue(5);
-                        TextBox11.Text = reader.GetValue(6);
-                        TextBox6.Text = reader.GetValue(6);
+                        TextBox2.Text = reader.GetValue(0).ToString();
+                        TextBox7.Text = reader.GetValue(10).ToString();
+                        TextBox8.Text = reader.GetValue(1).ToString();
+                        TextBox3.Text = reader.GetValue(2).ToString();
+                        TextBox4.Text = reader.GetValue(3).ToString();
+                        TextBox9.Text = reader.GetValue(4).ToString();
+                        TextBox10.Text = reader.GetValue(5).ToString();
+                        TextBox11.Text = reader.GetValue(6).ToString();
+                        TextBox6.Text = reader.GetValue(6).ToString();
                     }
                 }
                 else Response.Write("<script>alert('Invalid Credentials!')</script>");
@@ -148,7 +142,6 @@ namespace LibraryManagementApp
                 {
                     Response.Write($"<script>alert('{ex.Message}')</script>");
                 }
-                Response.Write("<script>alert('Member ID Cannot Be Blank!')</script>");
             }
             else
             {
