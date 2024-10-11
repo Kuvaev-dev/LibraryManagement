@@ -127,9 +127,10 @@ namespace LibraryManagementApp
             LinkButton10.Visible = false; // Member Management Link Button
         }
 
+        // View Profile
         protected void LinkButton7_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("UserProfile.aspx");
         }
     }
 }
