@@ -1,12 +1,11 @@
-﻿using System;
-using System.Configuration;
-using System.Data.SqlClient;
+﻿using LibraryManagementApp.services;
+using System;
 
 namespace LibraryManagementApp
 {
     public partial class AdminLogin : System.Web.UI.Page
     {
-        private readonly string connStr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
+        public AuthenticationService AuthService { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -17,28 +16,24 @@ namespace LibraryManagementApp
         {
             try
             {
-                SqlConnection sqlConnection = new SqlConnection(connStr);
-                if (sqlConnection.State == System.Data.ConnectionState.Closed) sqlConnection.Open();
-                SqlCommand sqlCommand = new SqlCommand($"SELECT * FROM [admin_tbl] WHERE [username] = {TextBox1.Text.Trim()} AND [password] = {TextBox2.Text.Trim()}", sqlConnection);
-                SqlDataReader reader = sqlCommand.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        Response.Write($"<script>alert('{reader.GetValue(0)}')</script>");
+                var result = AuthService.VerifyAdminCredentials(TextBox1.Text.Trim(), TextBox2.Text.Trim());
 
-                        Session["username"] = reader.GetValue(0);
-                        Session["fullname"] = reader.GetValue(2);
-                        Session["role"] = "admin";
-                        //Session["status"] = reader.GetValue(10);
-                    }
+                if (result.IsSuccess)
+                {
+                    Session["username"] = TextBox1.Text.Trim();
+                    Session["fullname"] = result.FullName;
+                    Session["role"] = "admin";
+
                     Response.Redirect("Home.aspx");
                 }
-                else Response.Write("<script>alert('Invalid Credentials!')</script>");
+                else
+                {
+                    Response.Write($"<script>alert('{result.ErrorMessage}')</script>");
+                }
             }
             catch (Exception ex)
             {
-                Response.Write($"<script>alert('{ex.Message}')</script>");
+                Response.Write($"<script>alert('Error: {ex.Message}')</script>");
             }
         }
     }

@@ -24,6 +24,15 @@ namespace LibraryManagementApp
         protected global::System.Web.UI.WebControls.TextBox TextBox2;
 
         /// <summary>
+        /// rfvMemberID элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvMemberID;
+
+        /// <summary>
         /// TextBox1 элемент управления.
         /// </summary>
         /// <remarks>
@@ -31,6 +40,15 @@ namespace LibraryManagementApp
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBox1;
+
+        /// <summary>
+        /// rfvBookID элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvBookID;
 
         /// <summary>
         /// Button4 элемент управления.
@@ -69,6 +87,15 @@ namespace LibraryManagementApp
         protected global::System.Web.UI.WebControls.TextBox TextBox5;
 
         /// <summary>
+        /// rfvStartDate элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvStartDate;
+
+        /// <summary>
         /// TextBox6 элемент управления.
         /// </summary>
         /// <remarks>
@@ -76,6 +103,15 @@ namespace LibraryManagementApp
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBox6;
+
+        /// <summary>
+        /// rfvEndDate элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEndDate;
 
         /// <summary>
         /// Button1 элемент управления.

@@ -33,6 +33,33 @@ namespace LibraryManagementApp
         protected global::System.Web.UI.WebControls.TextBox TextBox1;
 
         /// <summary>
+        /// rfvBookID элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvBookID;
+
+        /// <summary>
+        /// revBookID элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revBookID;
+
+        /// <summary>
+        /// rfvBookName элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvBookName;
+
+        /// <summary>
         /// Button4 элемент управления.
         /// </summary>
         /// <remarks>
@@ -112,6 +139,15 @@ namespace LibraryManagementApp
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBox10;
+
+        /// <summary>
+        /// rvBookCost элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator rvBookCost;
 
         /// <summary>
         /// TextBox11 элемент управления.

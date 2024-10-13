@@ -1,12 +1,11 @@
-﻿using System;
+﻿using LibraryManagementApp.services;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace LibraryManagementApp
@@ -14,12 +13,11 @@ namespace LibraryManagementApp
     public partial class AdminBookInventory : System.Web.UI.Page
     {
         private readonly string connStr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
-        private static string global_filepath;
-        private static int global_actual_stock, global_current_stock, global_issued_books;
+        public BookService BookService { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (!IsPostBack)
                 FillAuthorPublisherValues();
 
             GridView1.DataBind();
@@ -28,283 +26,205 @@ namespace LibraryManagementApp
         // Add
         protected void Button2_Click(object sender, EventArgs e)
         {
-            if (IsBookExists())
-                Response.Write($"<script>alert('Book Already Exists!')</script>");
-            else AddNewBook();
+            if (BookService.IsBookExists(TextBox1.Text.Trim(), TextBox2.Text.Trim()))
+                Response.Write("<script>alert('Book Already Exists!')</script>");
+            else
+            {
+                if (ValidateInputs())
+                {
+                    var bookDetails = new Dictionary<string, string>
+                    {
+                        {"book_id", TextBox1.Text.Trim()},
+                        {"book_name", TextBox2.Text.Trim()},
+                        {"genre", string.Join(",", ListBox1.Items.Cast<ListItem>().Where(i => i.Selected).Select(i => i.Value))},
+                        {"author_name", DropDownList3.SelectedItem.Value},
+                        {"publisher_name", DropDownList2.SelectedItem.Value},
+                        {"publish_date", TextBox3.Text.Trim()},
+                        {"language", DropDownList1.SelectedItem.Value},
+                        {"edition", TextBox9.Text.Trim()},
+                        {"book_cost", TextBox10.Text.Trim()},
+                        {"no_of_pages", TextBox11.Text.Trim()},
+                        {"book_description", TextBox6.Text.Trim()},
+                        {"actual_stock", TextBox4.Text.Trim()},
+                        {"current_stock", TextBox5.Text.Trim()}
+                    };
+
+                    string filePath = "~/book_inventory/book1.png";
+                    if (FileUpload1.HasFile)
+                    {
+                        string fileName = Path.GetFileName(FileUpload1.PostedFile.FileName);
+                        FileUpload1.SaveAs(Server.MapPath("book_inventory/" + fileName));
+                        filePath = "~/book_inventory/" + fileName;
+                    }
+
+                    if (BookService.AddNewBook(bookDetails, filePath))
+                    {
+                        Response.Write("<script>alert('Book Added Successfully!')</script>");
+                        GridView1.DataBind();
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('Error adding book')</script>");
+                    }
+                }
+            }
         }
 
         // Update
         protected void Button3_Click(object sender, EventArgs e)
         {
-            UpdateBookByID();
+            if (ValidateInputs())
+            {
+
+                var bookDetails = new Dictionary<string, string>
+                {
+                    {"book_id", TextBox1.Text.Trim()},
+                    {"book_name", TextBox2.Text.Trim()},
+                    {"genre", string.Join(",", ListBox1.Items.Cast<ListItem>().Where(i => i.Selected).Select(i => i.Value))},
+                    {"author_name", DropDownList3.SelectedItem.Value},
+                    {"publisher_name", DropDownList2.SelectedItem.Value},
+                    {"publish_date", TextBox3.Text.Trim()},
+                    {"language", DropDownList1.SelectedItem.Value},
+                    {"edition", TextBox9.Text.Trim()},
+                    {"book_cost", TextBox10.Text.Trim()},
+                    {"no_of_pages", TextBox11.Text.Trim()},
+                    {"book_description", TextBox6.Text.Trim()},
+                    {"actual_stock", TextBox4.Text.Trim()},
+                    {"current_stock", TextBox5.Text.Trim()}
+                };
+
+                string filePath = "~/book_inventory/book1.png";
+                if (FileUpload1.HasFile)
+                {
+                    string fileName = Path.GetFileName(FileUpload1.PostedFile.FileName);
+                    FileUpload1.SaveAs(Server.MapPath("book_inventory/" + fileName));
+                    filePath = "~/book_inventory/" + fileName;
+                }
+
+                if (BookService.UpdateBook(bookDetails, filePath))
+                {
+                    Response.Write("<script>alert('Book Updated Successfully!')</script>");
+                    GridView1.DataBind();
+                }
+                else
+                {
+                    Response.Write("<script>alert('Error updating book')</script>");
+                }
+            }
         }
 
         // Delete
         protected void Button1_Click(object sender, EventArgs e)
         {
-            DeleteBook();
+            if (BookService.DeleteBook(TextBox1.Text.Trim()))
+            {
+                Response.Write("<script>alert('Book Deleted Successfully!')</script>");
+                GridView1.DataBind();
+            }
+            else
+            {
+                Response.Write("<script>alert('Error deleting book')</script>");
+            }
         }
 
         // Go
         protected void Button4_Click(object sender, EventArgs e)
         {
-            GetBookByID();
+            var bookDetails = BookService.GetBookByID(TextBox1.Text.Trim());
+            if (bookDetails.Count > 0)
+            {
+                TextBox2.Text = bookDetails["book_name"];
+                TextBox3.Text = bookDetails["publish_date"];
+                TextBox9.Text = bookDetails["edition"];
+                TextBox10.Text = bookDetails["book_cost"];
+                TextBox11.Text = bookDetails["no_of_pages"];
+                TextBox4.Text = bookDetails["actual_stock"];
+                TextBox5.Text = bookDetails["current_stock"];
+                TextBox6.Text = bookDetails["book_description"];
+                DropDownList1.SelectedValue = bookDetails["language"];
+                DropDownList2.SelectedValue = bookDetails["publisher_name"];
+                DropDownList3.SelectedValue = bookDetails["author_name"];
+
+                string[] genres = bookDetails["genre"].Split(',');
+                ListBox1.ClearSelection();
+                foreach (string genre in genres)
+                {
+                    ListItem item = ListBox1.Items.FindByText(genre);
+                    if (item != null)
+                    {
+                        item.Selected = true;
+                    }
+                }
+            }
+            else
+            {
+                Response.Write("<script>alert('Invalid Book ID!')</script>");
+            }
         }
 
         private void FillAuthorPublisherValues()
         {
             try
             {
-                SqlConnection sqlConnection = new SqlConnection(connStr);
-                if (sqlConnection.State == System.Data.ConnectionState.Closed) sqlConnection.Open();
-                
-                SqlCommand sqlCommand = new SqlCommand($"SELECT [author_name] FROM [author_master_tbl];", sqlConnection);
-                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-                DataTable dataTable = new DataTable();
-                sqlDataAdapter.Fill(dataTable);
-                DropDownList3.DataSource = dataTable;
+                if (!(Cache["Authors"] is DataTable authorsTable) || !(Cache["Publishers"] is DataTable publishersTable))
+                {
+                    using (SqlConnection sqlConnection = new SqlConnection(connStr))
+                    {
+                        sqlConnection.Open();
+
+                        // Load authors
+                        using (SqlCommand sqlCommand = new SqlCommand("SELECT [author_name] FROM [author_master_tbl];", sqlConnection))
+                        {
+                            using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand))
+                            {
+                                authorsTable = new DataTable();
+                                sqlDataAdapter.Fill(authorsTable);
+                                Cache.Insert("Authors", authorsTable, null, DateTime.Now.AddMinutes(10), System.Web.Caching.Cache.NoSlidingExpiration);
+                            }
+                        }
+
+                        // Load publishers
+                        using (SqlCommand sqlCommand = new SqlCommand("SELECT [publisher_name] FROM [publisher_master_tbl];", sqlConnection))
+                        {
+                            using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand))
+                            {
+                                publishersTable = new DataTable();
+                                sqlDataAdapter.Fill(publishersTable);
+                                Cache.Insert("Publishers", publishersTable, null, DateTime.Now.AddMinutes(10), System.Web.Caching.Cache.NoSlidingExpiration);
+                            }
+                        }
+                    }
+                }
+
+                DropDownList3.DataSource = authorsTable;
                 DropDownList3.DataValueField = "author_name";
                 DropDownList3.DataBind();
 
-                sqlCommand = new SqlCommand($"SELECT [publisher_name] FROM [publisher_master_tbl];", sqlConnection);
-                sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-                dataTable = new DataTable();
-                sqlDataAdapter.Fill(dataTable);
-                DropDownList2.DataSource = dataTable;
+                DropDownList2.DataSource = publishersTable;
                 DropDownList2.DataValueField = "publisher_name";
                 DropDownList2.DataBind();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                Response.Write($"<script>alert('Error: {ex.Message}')</script>");
             }
         }
 
-        private bool IsBookExists()
+        private bool ValidateInputs()
         {
-            try
+            if (string.IsNullOrWhiteSpace(TextBox1.Text) || string.IsNullOrWhiteSpace(TextBox2.Text))
             {
-                SqlConnection sqlConnection = new SqlConnection(connStr);
-                if (sqlConnection.State == System.Data.ConnectionState.Closed) sqlConnection.Open();
-                SqlCommand sqlCommand = new SqlCommand($"SELECT * FROM [book_master_tbl] WHERE [book_id] = '{TextBox1.Text.Trim()}' OR [book_name] = '{TextBox2.Text.Trim()}';", sqlConnection);
-                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-                DataTable dataTable = new DataTable();
-                sqlDataAdapter.Fill(dataTable);
-                sqlCommand.ExecuteNonQuery();
-                sqlConnection.Close();
-
-                return dataTable.Rows.Count >= 1;
-            }
-            catch (Exception ex)
-            {
-                Response.Write($"<script>alert('{ex.Message}')</script>");
+                Response.Write("<script>alert('Book ID and Name are required.')</script>");
                 return false;
             }
-        }
 
-        private void AddNewBook()
-        {
-            try
+            if (!int.TryParse(TextBox10.Text, out _) || !int.TryParse(TextBox11.Text, out _))
             {
-                string genres = "";
-                foreach (var item in ListBox1.GetSelectedIndices())
-                {
-                    genres += ListBox1.Items[item] + ",";
-                }
-                // genres = "..."
-                genres=genres.Remove(genres.Length - 1);
-
-                string filePath = "~/book_inventory/book1.png";
-                string fileName = Path.GetFileName(FileUpload1.PostedFile.FileName);
-                FileUpload1.SaveAs(Server.MapPath("book_inventory/" + fileName));
-                filePath = "~/book_inventory/" + fileName;
-
-                SqlConnection sqlConnection = new SqlConnection(connStr);
-                if (sqlConnection.State == System.Data.ConnectionState.Closed) sqlConnection.Open();
-                SqlCommand sqlCommand = new SqlCommand("INSERT INTO [book_master_tbl](book_id, book_name, genre, author_name, publisher_name, publish_date, language, edition, book_cost, no_of_pages, book_description, actual_stock, current_stock, book_img_link) VALUES (@book_id, @book_name, @genre, @author_name, @publisher_name, @publish_date, @language, @edition, @book_cost, @no_of_pages, @book_description, @actual_stock, @current_stock, @book_img_link);", sqlConnection);
-                sqlCommand.Parameters.AddWithValue("@book_id", TextBox1.Text.Trim());
-                sqlCommand.Parameters.AddWithValue("@book_name", TextBox2.Text.Trim());
-                sqlCommand.Parameters.AddWithValue("@genre", genres);
-                sqlCommand.Parameters.AddWithValue("@author_name", DropDownList3.SelectedItem.Value);
-                sqlCommand.Parameters.AddWithValue("@publisher_name", DropDownList2.SelectedItem.Value);
-                sqlCommand.Parameters.AddWithValue("@publish_date", TextBox3.Text.Trim());
-                sqlCommand.Parameters.AddWithValue("@language", DropDownList1.SelectedItem.Value);
-                sqlCommand.Parameters.AddWithValue("@edition", TextBox9.Text.Trim());
-                sqlCommand.Parameters.AddWithValue("@book_cost", TextBox10.Text.Trim());
-                sqlCommand.Parameters.AddWithValue("@no_of_pages", TextBox11.Text.Trim());
-                sqlCommand.Parameters.AddWithValue("@book_description", TextBox6.Text.Trim());
-                sqlCommand.Parameters.AddWithValue("@actual_stock", TextBox1.Text.Trim());
-                sqlCommand.Parameters.AddWithValue("@current_stock", TextBox5.Text.Trim());
-                sqlCommand.Parameters.AddWithValue("@book_img_link", filePath);
-
-                sqlCommand.ExecuteNonQuery();
-                sqlConnection.Close();
-                Response.Write($"<script>alert('Book Added Successfully!')</script>");
-                GridView1.DataBind();
+                Response.Write("<script>alert('Please enter valid numbers for cost and pages.')</script>");
+                return false;
             }
-            catch (Exception ex)
-            {
-                Response.Write($"<script>alert('{ex.Message}')</script>");
-            }
-        }
 
-        private void GetBookByID()
-        {
-            try
-            {
-                SqlConnection sqlConnection = new SqlConnection(connStr);
-                if (sqlConnection.State == System.Data.ConnectionState.Closed) sqlConnection.Open();
-
-                SqlCommand sqlCommand = new SqlCommand($"SELECT * FROM [book_master_tbl] WHERE [book_id] = {TextBox1.Text.Trim()}", sqlConnection);
-                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-                DataTable dataTable = new DataTable();
-                sqlDataAdapter.Fill(dataTable);
-                if (dataTable.Rows.Count >= 1)
-                {
-                    TextBox2.Text = dataTable.Rows[0]["book_name"].ToString();
-                    TextBox3.Text = dataTable.Rows[0]["publish_date"].ToString();
-                    TextBox9.Text = dataTable.Rows[0]["edition"].ToString();
-                    TextBox10.Text = dataTable.Rows[0]["book_cost"].ToString().Trim();
-                    TextBox11.Text = dataTable.Rows[0]["no_of_pages"].ToString().Trim();
-                    TextBox4.Text = dataTable.Rows[0]["actual_stock"].ToString().Trim();
-                    TextBox5.Text = dataTable.Rows[0]["current_stock"].ToString().Trim();
-                    TextBox6.Text = dataTable.Rows[0]["book_description"].ToString();
-                    TextBox7.Text = "" + (Convert.ToInt32(dataTable.Rows[0]["actual_stock"].ToString()) - Convert.ToInt32(dataTable.Rows[0]["current_stock"].ToString()));
-                    DropDownList1.SelectedValue = dataTable.Rows[0]["language"].ToString().Trim();
-                    DropDownList2.SelectedValue = dataTable.Rows[0]["publisher_name"].ToString().Trim();
-                    DropDownList3.SelectedValue = dataTable.Rows[0]["author_name"].ToString().Trim();
-
-                    string[] genre = dataTable.Rows[0]["genre"].ToString().Trim().Split(',');
-                    ListBox1.ClearSelection();
-                    for (int i = 0; i < genre.Length; i++)
-                    {
-                        for (int j = 0; j < ListBox1.Items.Count; j++)
-                        {
-                            if (ListBox1.Items[j].ToString() == genre[i])
-                                ListBox1.Items[j].Selected = true;
-                        }
-                    }
-
-                    global_actual_stock= Convert.ToInt32(dataTable.Rows[0]["actual_stock"].ToString().Trim());
-                    global_current_stock = Convert.ToInt32(dataTable.Rows[0]["current_stock"].ToString().Trim());
-                    global_issued_books = global_actual_stock - global_current_stock;
-                    global_filepath = dataTable.Rows[0]["book_img_link"].ToString();
-                }
-                else
-                {
-                    Response.Write($"<script>alert('Invalid Book ID!')</script>");
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-
-        private void UpdateBookByID()
-        {
-            if (IsBookExists())
-            {
-                try
-                {
-                    int actual_stock = Convert.ToInt32(TextBox4.Text.Trim());
-                    int current_stock = Convert.ToInt32(TextBox5.Text.Trim());
-                    if (global_actual_stock == actual_stock)
-                    {
-
-                    }
-                    else
-                    {
-                        if (actual_stock < global_issued_books)
-                        {
-                            Response.Write($"<script>alert('Actual Stock Value cannot be less than the Issued Books')</script>");
-                        }
-                        else
-                        {
-                            current_stock = actual_stock - global_issued_books;
-                            TextBox5.Text = "" + current_stock;
-                        }
-                    }
-
-                    string genres = "";
-                    foreach (var item in ListBox1.GetSelectedIndices())
-                    {
-                        genres += ListBox1.Items[item] + ",";
-                    }
-                    genres = genres.Remove(genres.Length - 1);
-
-                    string filePath = "~/book_inventory/books1";
-                    string fileName = Path.GetFileName(FileUpload1.PostedFile.FileName);
-                    if (fileName == "" || fileName == null)
-                    {
-                        filePath = global_filepath;
-                    }
-                    else
-                    {
-                        FileUpload1.SaveAs(Server.MapPath("book_inventory/" + fileName));
-                        filePath = "~/book_inventory/" + fileName;
-                    }
-
-                    SqlConnection sqlConnection = new SqlConnection(connStr);
-                    if (sqlConnection.State == System.Data.ConnectionState.Closed) sqlConnection.Open();
-                    SqlCommand sqlCommand = new SqlCommand($"UPDATE [book_master_tbl] SET book_name = @book_name, genre = @genre, author_name = @author_name, publisher_name = @publisher_name, publish_date = @publish_date, language = @language, edition = @edition, book_cost = @book_cost, no_of_pages = @no_of_pages, book_description = @book_description, actual_stock = @actual_stock, current_stock = @current_stock, book_img_link = @book_img_link WHERE book_id = '{TextBox1.Text.Trim()}'", sqlConnection);
-                    sqlCommand.Parameters.AddWithValue("@book_name", TextBox2.Text.Trim());
-                    sqlCommand.Parameters.AddWithValue("@genre", genres);
-                    sqlCommand.Parameters.AddWithValue("@author_name", DropDownList3.SelectedItem.Value);
-                    sqlCommand.Parameters.AddWithValue("@publisher_name", DropDownList2.SelectedItem.Value);
-                    sqlCommand.Parameters.AddWithValue("@publish_date", TextBox3.Text.Trim());
-                    sqlCommand.Parameters.AddWithValue("@language", DropDownList1.SelectedItem.Value);
-                    sqlCommand.Parameters.AddWithValue("@edition", TextBox9.Text.Trim());
-                    sqlCommand.Parameters.AddWithValue("@book_cost", TextBox10.Text.Trim());
-                    sqlCommand.Parameters.AddWithValue("@no_of_pages", TextBox11.Text.Trim());
-                    sqlCommand.Parameters.AddWithValue("@book_description", TextBox6.Text.Trim());
-                    sqlCommand.Parameters.AddWithValue("@actual_stock", actual_stock.ToString());
-                    sqlCommand.Parameters.AddWithValue("@current_stock", current_stock.ToString());
-                    sqlCommand.Parameters.AddWithValue("@book_img_link", filePath);
-
-                    sqlCommand.ExecuteNonQuery();
-                    sqlConnection.Close();
-                    GridView1.DataBind();
-                    Response.Write("<script>alert('Book Updated!')</script>");
-                }
-                catch (Exception ex)
-                {
-                    Response.Write($"<script>alert('{ex.Message}')</script>");
-                }
-            }
-            else
-            {
-                Response.Write("<script>alert('Invalid Book ID!')</script>");
-            }
-        }
-
-        private void DeleteBook()
-        {
-            if (IsBookExists())
-            {
-                try
-                {
-                    SqlConnection sqlConnection = new SqlConnection(connStr);
-                    if (sqlConnection.State == System.Data.ConnectionState.Closed) sqlConnection.Open();
-
-                    SqlCommand sqlCommand = new SqlCommand($"DELETE FROM [book_master_tbl] WHERE [book_id] = {TextBox1.Text.Trim()}", sqlConnection);
-
-                    sqlCommand.ExecuteNonQuery();
-                    sqlConnection.Close();
-                    Response.Write("<script>alert('Book Deleted Successfully!')</script>");
-                    GridView1.DataBind();
-                }
-                catch (Exception ex)
-                {
-                    Response.Write($"<script>alert('{ex.Message}')</script>");
-                }
-            }
-            else
-            {
-                Response.Write("<script>alert('Invalid Book ID!')</script>");
-            }
+            return true;
         }
     }
 }

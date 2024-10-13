@@ -1,13 +1,11 @@
-﻿using System;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
+﻿using LibraryManagementApp.services;
+using System;
 
 namespace LibraryManagementApp
 {
     public partial class AdminMemberManagement : System.Web.UI.Page
     {
-        private readonly string connStr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
+        public MemberService MemberService { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -44,76 +42,40 @@ namespace LibraryManagementApp
             DeleteMemberByID();
         }
 
-        private bool IsMemberExists()
-        {
-            try
-            {
-                SqlConnection sqlConnection = new SqlConnection(connStr);
-                if (sqlConnection.State == System.Data.ConnectionState.Closed) sqlConnection.Open();
-                SqlCommand sqlCommand = new SqlCommand($"SELECT * FROM [member_master_tbl] WHERE [member_id] = '{TextBox1.Text.Trim()}'", sqlConnection);
-                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-                DataTable dataTable = new DataTable();
-                sqlDataAdapter.Fill(dataTable);
-                sqlCommand.ExecuteNonQuery();
-                sqlConnection.Close();
-
-                return dataTable.Rows.Count >= 1;
-            }
-            catch (Exception ex)
-            {
-                Response.Write($"<script>alert('{ex.Message}')</script>");
-                return false;
-            }
-        }
-
         private void GetMemberByID()
         {
-            try
+            var memberDetails = MemberService.GetMemberByID(TextBox1.Text.Trim());
+            if (memberDetails.Count > 0)
             {
-                SqlConnection sqlConnection = new SqlConnection(connStr);
-                if (sqlConnection.State == System.Data.ConnectionState.Closed) sqlConnection.Open();
-                SqlCommand sqlCommand = new SqlCommand($"SELECT * FROM [member_master_tbl] WHERE [member_id] = '{TextBox1.Text.Trim()}'", sqlConnection);
-                SqlDataReader reader = sqlCommand.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        TextBox2.Text = reader.GetValue(0).ToString();
-                        TextBox7.Text = reader.GetValue(10).ToString();
-                        TextBox8.Text = reader.GetValue(1).ToString();
-                        TextBox3.Text = reader.GetValue(2).ToString();
-                        TextBox4.Text = reader.GetValue(3).ToString();
-                        TextBox9.Text = reader.GetValue(4).ToString();
-                        TextBox10.Text = reader.GetValue(5).ToString();
-                        TextBox11.Text = reader.GetValue(6).ToString();
-                        TextBox6.Text = reader.GetValue(6).ToString();
-                    }
-                }
-                else Response.Write("<script>alert('Invalid Credentials!')</script>");
+                TextBox2.Text = memberDetails["full_name"];
+                TextBox7.Text = memberDetails["account_status"];
+                TextBox8.Text = memberDetails["dob"];
+                TextBox3.Text = memberDetails["contact_no"];
+                TextBox4.Text = memberDetails["email"];
+                TextBox9.Text = memberDetails["state"];
+                TextBox10.Text = memberDetails["city"];
+                TextBox11.Text = memberDetails["pin_code"];
+                TextBox6.Text = memberDetails["postal_address"];
             }
-            catch (Exception ex)
+            else
             {
-                Response.Write($"<script>alert('{ex.Message}')</script>");
+                Response.Write("<script>alert('Member not found!')</script>");
             }
         }
 
         private void UpdateMemberStatusByID(string status)
         {
-            if (IsMemberExists())
+            if (MemberService.IsMemberExists(TextBox1.Text.Trim()))
             {
-                try
+                if (MemberService.UpdateMemberStatusByID(TextBox1.Text.Trim(), status))
                 {
-                    SqlConnection sqlConnection = new SqlConnection(connStr);
-                    if (sqlConnection.State == System.Data.ConnectionState.Closed) sqlConnection.Open();
-                    SqlCommand sqlCommand = new SqlCommand($"UPDATE [member_master_tbl] SET [account_status] = '{status}' WHERE [member_id] = '{TextBox1.Text.Trim()}'", sqlConnection);
-                    sqlCommand.ExecuteNonQuery();
-                    sqlConnection.Close();
+                    ClearForm();
                     GridView1.DataBind();
                     Response.Write("<script>alert('Member Status Updated!')</script>");
                 }
-                catch (Exception ex)
+                else
                 {
-                    Response.Write($"<script>alert('{ex.Message}')</script>");
+                    Response.Write("<script>alert('Error updating member status')</script>");
                 }
             }
             else
@@ -124,23 +86,17 @@ namespace LibraryManagementApp
 
         private void DeleteMemberByID()
         {
-            if (IsMemberExists())
+            if (MemberService.IsMemberExists(TextBox1.Text.Trim()))
             {
-                try
+                if (MemberService.DeleteMemberByID(TextBox1.Text.Trim()))
                 {
-                    SqlConnection sqlConnection = new SqlConnection(connStr);
-                    if (sqlConnection.State == System.Data.ConnectionState.Closed) sqlConnection.Open();
-
-                    SqlCommand sqlCommand = new SqlCommand($"DELETE FROM [member_master_tbl] WHERE [member_id] = {TextBox1.Text.Trim()}", sqlConnection);
-
-                    sqlCommand.ExecuteNonQuery();
-                    sqlConnection.Close();
                     Response.Write("<script>alert('Member Deleted Successfully!')</script>");
+                    ClearForm();
                     GridView1.DataBind();
                 }
-                catch (Exception ex)
+                else
                 {
-                    Response.Write($"<script>alert('{ex.Message}')</script>");
+                    Response.Write("<script>alert('Error deleting member')</script>");
                 }
             }
             else

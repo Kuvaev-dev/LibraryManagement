@@ -37,6 +37,9 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <asp:TextBox ID="TextBox1" CssClass="form-control" placeholder="ID" runat="server"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TextBox1" ErrorMessage="Author ID is required" CssClass="text-danger" Display="Dynamic" />
+                                        <asp:RegularExpressionValidator ID="RegexValidator1" runat="server" ControlToValidate="TextBox1" ErrorMessage="Invalid ID format" ValidationExpression="^\d+$" CssClass="text-danger" Display="Dynamic" />
+
                                         <asp:Button class="btn btn-primary" runat="server" Text="Go" OnClick="Unnamed1_Click"/>
                                     </div>
                                 </div>
@@ -45,6 +48,7 @@
                                 <label>Author Name</label>
                                 <div class="form-group">
                                     <asp:TextBox ID="TextBox2" CssClass="form-control" placeholder="Name" runat="server"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="TextBox2" ErrorMessage="Author Name is required" CssClass="text-danger" Display="Dynamic" />
                                 </div>
                             </div>
                         </div>

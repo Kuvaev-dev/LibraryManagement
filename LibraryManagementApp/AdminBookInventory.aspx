@@ -52,6 +52,9 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <asp:TextBox ID="TextBox1" CssClass="form-control" runat="server" placeholder="Book ID"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="rfvBookID" runat="server" ControlToValidate="TextBox1" ErrorMessage="Book ID is required." CssClass="text-danger" Display="Dynamic" />
+                                        <asp:RegularExpressionValidator ID="revBookID" runat="server" ControlToValidate="TextBox1" ErrorMessage="Invalid Book ID format." ValidationExpression="^\d+$" CssClass="text-danger" Display="Dynamic" />
+                                        <asp:RequiredFieldValidator ID="rfvBookName" runat="server" ControlToValidate="TextBox2" ErrorMessage="Book Name is required." CssClass="text-danger" Display="Dynamic" />
                                         <asp:Button ID="Button4" runat="server" Text="Go" CssClass="form-control btn btn-primary" OnClick="Button4_Click"/>
                                     </div>
                                 </div>
@@ -110,6 +113,7 @@
                                 <label>Book Cost (Per Unit)</label>
                                 <div class="form-group">
                                     <asp:TextBox ID="TextBox10" CssClass="form-control" placeholder="Book Cost (Per Unit)" runat="server" TextMode="Number"></asp:TextBox>
+                                    <asp:RangeValidator ID="rvBookCost" runat="server" ControlToValidate="TextBox10" ErrorMessage="Enter a valid cost." MinimumValue="0" MaximumValue="10000" Type="Double" CssClass="text-danger" Display="Dynamic" />
                                 </div>
                             </div>
                             <div class="col-md-4">

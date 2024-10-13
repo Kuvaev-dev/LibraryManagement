@@ -22,7 +22,7 @@
                         <div class="row">
                             <div class="col">
                                 <center>
-                                    <img src="assets/imgs/books.png" width="100px"/>
+                                    <img src="assets/imgs/books.png" style="width:100px"/>
                                 </center>
                             </div>
                         </div>
@@ -36,6 +36,7 @@
                                 <label>Member ID</label>
                                 <div class="form-group">
                                     <asp:TextBox ID="TextBox2" CssClass="form-control" placeholder="Member ID" runat="server"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="rfvMemberID" runat="server" ControlToValidate="TextBox2" ErrorMessage="Member ID is required." CssClass="text-danger" Display="Dynamic" />
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -43,6 +44,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <asp:TextBox ID="TextBox1" CssClass="form-control" runat="server" placeholder="Book ID"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="rfvBookID" runat="server" ControlToValidate="TextBox1" ErrorMessage="Book ID is required." CssClass="text-danger" Display="Dynamic" />
                                         <asp:Button ID="Button4" CssClass="btn btn-dark" runat="server" Text="Go" OnClick="Button4_Click" />
                                     </div>
                                 </div>
@@ -67,12 +69,14 @@
                                 <label>Start Date</label>
                                 <div class="form-group">
                                     <asp:TextBox ID="TextBox5" CssClass="form-control" placeholder="Start Date" runat="server" TextMode="Date"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="rfvStartDate" runat="server" ControlToValidate="TextBox5" ErrorMessage="Start Date is required." CssClass="text-danger" Display="Dynamic" />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <label>End Date</label>
                                 <div class="form-group">
                                     <asp:TextBox ID="TextBox6" CssClass="form-control" placeholder="End Date" runat="server" TextMode="Date"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="rfvEndDate" runat="server" ControlToValidate="TextBox6" ErrorMessage="End Date is required." CssClass="text-danger" Display="Dynamic" />
                                 </div>
                             </div>
                         </div>

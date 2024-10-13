@@ -22,7 +22,7 @@
                         <div class="row">
                             <div class="col">
                                 <center>
-                                    <img src="assets/imgs/generaluser.png" width="100px"/>
+                                    <img src="assets/imgs/generaluser.png" style="width:100px"/>
                                 </center>
                             </div>
                         </div>
@@ -37,6 +37,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <asp:TextBox ID="TextBox1" CssClass="form-control" runat="server" placeholder="Member ID"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="rfvMemberID" runat="server" ControlToValidate="TextBox1" ErrorMessage="Member ID is required." CssClass="text-danger" Display="Dynamic" />
                                         <asp:LinkButton runat="server" CssClass="btn btn-primary" ID="LinkButton4" OnClick="LinkButton4_Click">
                                             <i class="fa-solid fa-circle-check"></i>
                                         </asp:LinkButton>

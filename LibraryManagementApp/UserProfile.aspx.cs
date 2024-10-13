@@ -1,70 +1,56 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Drawing;
+using LibraryManagementApp.services;
 
 namespace LibraryManagementApp
 {
     public partial class UserProfile : System.Web.UI.Page
     {
-        private readonly string connStr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
+        public UserService UserService { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
-            {
-                if (Session["username"].ToString() == ""|| Session["username"] == null)
-                {
-                    Response.Write("<script>alert('Session Expired! Login Again!')</script>");
-                    Response.Redirect("UserLogin.aspx");
-                }
-                else
-                {
-                    GetUserBookData();
-                    if (!Page.IsPostBack)
-                        GetUserPersonalDetails();
-                }
-            }
-            catch (Exception ex)
+            if (Session["username"] == null || string.IsNullOrEmpty(Session["username"].ToString()))
             {
                 Response.Write("<script>alert('Session Expired! Login Again!')</script>");
-                Response.Redirect("UserLogin.aspx");
+                Response.Redirect("User Login.aspx");
+            }
+            else
+            {
+                if (!IsPostBack)
+                {
+                    GetUserBookData();
+                    GetUserPersonalDetails();
+                }
             }
         }
 
-        // Update
         protected void Button1_Click(object sender, EventArgs e)
         {
-            if (Session["username"].ToString() == "" || Session["username"] == null)
+            if (Session["username"] == null || string.IsNullOrEmpty(Session["username"].ToString()))
             {
                 Response.Write("<script>alert('Session Expired! Login Again!')</script>");
-                Response.Redirect("UserLogin.aspx");
+                Response.Redirect("User Login.aspx");
             }
-            else UpdateUserPersonalDetails();
+            else
+            {
+                UpdateUserPersonalDetails();
+            }
         }
 
         private void GetUserBookData()
         {
             try
             {
-                SqlConnection sqlConnection = new SqlConnection(connStr);
-                if (sqlConnection.State == System.Data.ConnectionState.Closed) sqlConnection.Open();
-                SqlCommand sqlCommand = new SqlCommand($"SELECT * FROM [book_issue_tbl] WHERE [member_id] = '{Session["username"]}'", sqlConnection);
-                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-                DataTable dataTable = new DataTable();
-                sqlDataAdapter.Fill(dataTable);
+                DataTable dataTable = UserService.GetUserBookData(Session["username"].ToString());
                 GridView1.DataSource = dataTable;
                 GridView1.DataBind();
             }
             catch (Exception ex)
             {
-                Response.Write($"<script>alert('{ex.Message}')</script>");
+                Response.Write($"<script>alert('Error: {ex.Message}')</script>");
             }
         }
 
@@ -72,75 +58,79 @@ namespace LibraryManagementApp
         {
             try
             {
-                SqlConnection sqlConnection = new SqlConnection(connStr);
-                if (sqlConnection.State == System.Data.ConnectionState.Closed) sqlConnection.Open();
-                SqlCommand sqlCommand = new SqlCommand($"SELECT * FROM [member_issue_tbl] WHERE [member_id] = '{Session["username"]}';", sqlConnection);
-                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-                DataTable dataTable = new DataTable();
-                sqlDataAdapter.Fill(dataTable);
-                TextBox1.Text = dataTable.Rows[0]["full_name"].ToString();
-                TextBox2.Text = dataTable.Rows[0]["dob"].ToString();
-                TextBox3.Text = dataTable.Rows[0]["contact_no"].ToString();
-                TextBox4.Text = dataTable.Rows[0]["email"].ToString();
-                DropDownList1.SelectedValue = dataTable.Rows[0]["state"].ToString().Trim();
-                TextBox6.Text = dataTable.Rows[0]["city"].ToString();
-                TextBox7.Text = dataTable.Rows[0]["pincode"].ToString();
-                TextBox5.Text = dataTable.Rows[0]["full_address"].ToString();
-                TextBox8.Text = dataTable.Rows[0]["member_id"].ToString();
-                TextBox9.Text = dataTable.Rows[0]["password"].ToString();
+                var member = UserService.GetUserPersonalDetails(Session["username"].ToString());
+                if (member != null)
+                {
+                    TextBox1.Text = member.FullName;
+                    TextBox2.Text = member.DOB;
+                    TextBox3.Text = member.ContactNo;
+                    TextBox4.Text = member.Email;
+                    DropDownList1.SelectedValue = member.State;
+                    TextBox6.Text = member.City;
+                    TextBox7.Text = member.Pincode;
+                    TextBox5.Text = member.FullAddress;
+                    TextBox8.Text = member.MemberId;
+                    TextBox9.Text = member.Password;
 
-                Label1.Text = dataTable.Rows[0]["account_status"].ToString().Trim();
-                if (dataTable.Rows[0]["account_status"].ToString().Trim() == "active")
-                    Label1.Attributes.Add("class", "badge badge-pill badge-success");
-                else if (dataTable.Rows[0]["account_status"].ToString().Trim() == "pending")
-                    Label1.Attributes.Add("class", "badge badge-pill badge-warning");
-                else if (dataTable.Rows[0]["account_status"].ToString().Trim() == "deactive")
-                    Label1.Attributes.Add("class", "badge badge-pill badge-danger");
-                else Label1.Attributes.Add("class", "badge badge-pill badge-info");
-
+                    Label1.Text = member.AccountStatus;
+                    switch (member.AccountStatus)
+                    {
+                        case "active":
+                            Label1.CssClass = "badge badge-pill badge-success";
+                            break;
+                        case "pending":
+                            Label1.CssClass = "badge badge-pill badge-warning";
+                            break;
+                        case "deactive":
+                            Label1.CssClass = "badge badge-pill badge-danger";
+                            break;
+                        default:
+                            Label1.CssClass = "badge badge-pill badge-info";
+                            break;
+                    }
+                }
             }
             catch (Exception ex)
             {
-                Response.Write($"<script>alert('{ex.Message}')</script>");
+                Response.Write($"<script>alert('Error: {ex.Message}')</script>");
             }
         }
 
         private void UpdateUserPersonalDetails()
         {
-            string password = "";
-            if (TextBox10.Text.Trim() == "")
-                password = TextBox9.Text.Trim();
-            else password = TextBox10.Text.Trim();
+            string password = string.IsNullOrEmpty(TextBox10.Text.Trim()) ? TextBox9.Text.Trim() : TextBox10.Text.Trim();
 
             try
             {
-                SqlConnection sqlConnection = new SqlConnection(connStr);
-                if (sqlConnection.State == System.Data.ConnectionState.Closed) sqlConnection.Open();
-                SqlCommand sqlCommand = new SqlCommand($"UPDATE [member_master_tbl] SET [full_name] = @full_name, [dob] = @dob, [contact_no] = @contact_no, [email] = @email, [state] = @state, [city] = @city, [pincode] = @pincode, [full_address] = @full_address. [password] = @password, [account_status] = @account_status WHERE [member_id] = '{Session["username"]}'", sqlConnection);
-                sqlCommand.Parameters.AddWithValue("@full_name", TextBox1.Text.Trim());
-                sqlCommand.Parameters.AddWithValue("@dob", TextBox2.Text.Trim());
-                sqlCommand.Parameters.AddWithValue("@contact_no", TextBox3.Text.Trim());
-                sqlCommand.Parameters.AddWithValue("@email", TextBox4.Text.Trim());
-                sqlCommand.Parameters.AddWithValue("@state", DropDownList1.SelectedItem.Value);
-                sqlCommand.Parameters.AddWithValue("@city", TextBox6.Text.Trim());
-                sqlCommand.Parameters.AddWithValue("@pincode", TextBox7.Text.Trim());
-                sqlCommand.Parameters.AddWithValue("@full_address", TextBox5.Text.Trim());
-                sqlCommand.Parameters.AddWithValue("@password", password);
-                sqlCommand.Parameters.AddWithValue("@account_status", "pending");
+                var member = new Member
+                {
+                    FullName = TextBox1.Text.Trim(),
+                    DOB = TextBox2.Text.Trim(),
+                    ContactNo = TextBox3.Text.Trim(),
+                    Email = TextBox4.Text.Trim(),
+                    State = DropDownList1.SelectedItem.Value,
+                    City = TextBox6.Text.Trim(),
+                    Pincode = TextBox7.Text.Trim(),
+                    FullAddress = TextBox5.Text.Trim(),
+                    Password = password,
+                    MemberId = Session["username"].ToString(),
+                    AccountStatus = "pending"
+                };
 
-                int result = sqlCommand.ExecuteNonQuery();
-                sqlConnection.Close();
-                if (result > 0)
+                if (UserService.UpdateUserPersonalDetails(member))
                 {
                     Response.Write($"<script>alert('Your Details Updated Successfully!')</script>");
                     GetUserPersonalDetails();
                     GetUserBookData();
                 }
-                else Response.Write($"<script>alert('Invalid Entry!')</script>");
+                else
+                {
+                    Response.Write($"<script>alert('Invalid Entry!')</script>");
+                }
             }
             catch (Exception ex)
             {
-                Response.Write($"<script>alert('{ex.Message}')</script>");
+                Response.Write($"<script>alert('Error: {ex.Message}')</script>");
             }
         }
 
@@ -148,17 +138,18 @@ namespace LibraryManagementApp
         {
             try
             {
-                if (e.Row.RowType == System.Web.UI.WebControls.DataControlRowType.DataRow)
+                if (e.Row.RowType == DataControlRowType.DataRow)
                 {
                     DateTime dateTime = Convert.ToDateTime(e.Row.Cells[5].Text);
-                    DateTime today = DateTime.Today;
-                    if (today > dateTime)
+                    if (DateTime.Today > dateTime)
+                    {
                         e.Row.BackColor = Color.PaleVioletRed;
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Response.Write($"<script>alert('{ex.Message}')</script>");
+                Response.Write($"<script>alert('Error: {ex.Message}')</script>");
             }
         }
     }
