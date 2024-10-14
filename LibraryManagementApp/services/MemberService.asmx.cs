@@ -5,6 +5,14 @@ using System.Web.Services;
 
 namespace LibraryManagementApp.services
 {
+    public interface IMemberService
+    {
+        bool IsMemberExists(string memberId);
+        Dictionary<string, string> GetMemberByID(string memberId);
+        bool UpdateMemberStatusByID(string memberId, string status);
+        bool DeleteMemberByID(string memberId);
+    }
+
     /// <summary>
     /// Сводное описание для MemberService
     /// </summary>
@@ -13,7 +21,7 @@ namespace LibraryManagementApp.services
     [System.ComponentModel.ToolboxItem(false)]
     // Чтобы разрешить вызывать веб-службу из скрипта с помощью ASP.NET AJAX, раскомментируйте следующую строку. 
     // [System.Web.Script.Services.ScriptService]
-    public class MemberService : WebService
+    public class MemberService : WebService, IMemberService
     {
         private readonly string connStr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
 

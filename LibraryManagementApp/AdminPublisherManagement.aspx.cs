@@ -1,11 +1,17 @@
 ﻿using System;
+using LibraryManagementApp.helpers;
 using LibraryManagementApp.services;
 
 namespace LibraryManagementApp
 {
     public partial class AdminPublisherManagement : System.Web.UI.Page
     {
-        public PublisherService PublisherService { get; set; }
+        private readonly IPublisherService _publisherService;
+
+        public AdminPublisherManagement()
+        {
+            _publisherService = (IPublisherService)ServiceProviderConfig.ServiceProvider.GetService(typeof(IPublisherService));
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -15,11 +21,11 @@ namespace LibraryManagementApp
         // Add
         protected void Button1_Click(object sender, EventArgs e)
         {
-            if (PublisherService.IsPublisherExists(TextBox1.Text.Trim()))
+            if (_publisherService.IsPublisherExists(TextBox1.Text.Trim()))
                 Response.Write("<script>alert('Publisher with this ID already exists!')</script>");
             else
             {
-                if (PublisherService.AddNewPublisher(TextBox1.Text.Trim(), TextBox2.Text.Trim()))
+                if (_publisherService.AddNewPublisher(TextBox1.Text.Trim(), TextBox2.Text.Trim()))
                 {
                     Response.Write("<script>alert('Publisher Added Successfully!')</script>");
                     ClearForm();
@@ -35,9 +41,9 @@ namespace LibraryManagementApp
         // Update
         protected void Button2_Click(object sender, EventArgs e)
         {
-            if (PublisherService.IsPublisherExists(TextBox1.Text.Trim()))
+            if (_publisherService.IsPublisherExists(TextBox1.Text.Trim()))
             {
-                if (PublisherService.UpdatePublisher(TextBox1.Text.Trim(), TextBox2.Text.Trim()))
+                if (_publisherService.UpdatePublisher(TextBox1.Text.Trim(), TextBox2.Text.Trim()))
                 {
                     Response.Write("<script>alert('Publisher Updated Successfully!')</script>");
                     ClearForm();
@@ -57,9 +63,9 @@ namespace LibraryManagementApp
         // Delete
         protected void Button3_Click(object sender, EventArgs e)
         {
-            if (PublisherService.IsPublisherExists(TextBox1.Text.Trim()))
+            if (_publisherService.IsPublisherExists(TextBox1.Text.Trim()))
             {
-                if (PublisherService.DeletePublisher(TextBox1.Text.Trim()))
+                if (_publisherService.DeletePublisher(TextBox1.Text.Trim()))
                 {
                     Response.Write("<script>alert('Publisher Deleted Successfully!')</script>");
                     ClearForm();
@@ -79,7 +85,7 @@ namespace LibraryManagementApp
         // Go
         protected void Unnamed1_Click(object sender, EventArgs e)
         {
-            var publisherDetails = PublisherService.GetPublisherByID(TextBox1.Text.Trim());
+            var publisherDetails = _publisherService.GetPublisherByID(TextBox1.Text.Trim());
             if (publisherDetails.Count > 0)
             {
                 TextBox2.Text = publisherDetails["publisher_name"];

@@ -1,15 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Web;
 using System.Web.Caching;
 using System.Web.Services;
+using System.Web;
 
 namespace LibraryManagementApp.services
 {
+    public interface IBookIssuingService
+    {
+        bool IsBookExists(string bookId);
+        bool IsMemberExists(string memberId);
+        bool IsIssuedEntryExists(string bookId, string memberId);
+        void IssueBook(string bookId, string bookName, string memberId, string memberName, DateTime issueDate, DateTime dueDate);
+        void ReturnBook(string bookId, string memberId);
+        (string bookName, string memberName) GetBookAndMemberNames(string bookId, string memberId);
+    }
+
     /// <summary>
     /// Сводное описание для BookIssuingService
     /// </summary>
@@ -18,15 +26,9 @@ namespace LibraryManagementApp.services
     [System.ComponentModel.ToolboxItem(false)]
     // Чтобы разрешить вызывать веб-службу из скрипта с помощью ASP.NET AJAX, раскомментируйте следующую строку. 
     // [System.Web.Script.Services.ScriptService]
-    public class BookIssuingService : System.Web.Services.WebService
+    public class BookIssuingService : System.Web.Services.WebService, IBookIssuingService
     {
         private readonly string _connStr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
-        private readonly Cache _cache;
-
-        public BookIssuingService(Cache cache)
-        {
-            _cache = cache;
-        }
 
         public bool IsBookExists(string bookId)
         {
@@ -176,8 +178,9 @@ namespace LibraryManagementApp.services
             string bookNameCacheKey = $"BookName_{bookId}";
             string memberNameCacheKey = $"MemberName_{memberId}";
 
-            string bookName = _cache[bookNameCacheKey] as string;
-            string memberName = _cache[memberNameCacheKey] as string;
+            Cache cache = HttpContext.Current.Cache;
+            string bookName = cache[bookNameCacheKey] as string;
+            string memberName = cache[memberNameCacheKey] as string;
 
             if (bookName == null || memberName == null)
             {
@@ -197,7 +200,7 @@ namespace LibraryManagementApp.services
                                 if (dataTable.Rows.Count >= 1)
                                 {
                                     bookName = dataTable.Rows[0]["book_name"].ToString();
-                                    _cache.Insert(bookNameCacheKey, bookName, null, DateTime.Now.AddMinutes(10), Cache.NoSlidingExpiration);
+                                    cache.Insert(bookNameCacheKey, bookName, null, DateTime.Now.AddMinutes(10), Cache.NoSlidingExpiration);
                                 }
                                 else
                                 {
@@ -219,7 +222,7 @@ namespace LibraryManagementApp.services
                                 if (dataTable.Rows.Count >= 1)
                                 {
                                     memberName = dataTable.Rows[0]["full_name"].ToString();
-                                    _cache.Insert(memberNameCacheKey, memberName, null, DateTime.Now.AddMinutes(10), Cache.NoSlidingExpiration);
+                                    cache.Insert(memberNameCacheKey, memberName, null, DateTime.Now.AddMinutes(10), Cache.NoSlidingExpiration);
                                 }
                                 else
                                 {

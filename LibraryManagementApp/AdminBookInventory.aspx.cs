@@ -1,4 +1,5 @@
-﻿using LibraryManagementApp.services;
+﻿using LibraryManagementApp.helpers;
+using LibraryManagementApp.services;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -12,8 +13,13 @@ namespace LibraryManagementApp
 {
     public partial class AdminBookInventory : System.Web.UI.Page
     {
-        private readonly string connStr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
-        public BookService BookService { get; set; }
+        private readonly IBookService _bookService;
+        private readonly string _connStr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
+
+        public AdminBookInventory()
+        {
+            _bookService = (IBookService)ServiceProviderConfig.ServiceProvider.GetService(typeof(IBookService));
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -26,7 +32,7 @@ namespace LibraryManagementApp
         // Add
         protected void Button2_Click(object sender, EventArgs e)
         {
-            if (BookService.IsBookExists(TextBox1.Text.Trim(), TextBox2.Text.Trim()))
+            if (_bookService.IsBookExists(TextBox1.Text.Trim(), TextBox2.Text.Trim()))
                 Response.Write("<script>alert('Book Already Exists!')</script>");
             else
             {
@@ -57,7 +63,7 @@ namespace LibraryManagementApp
                         filePath = "~/book_inventory/" + fileName;
                     }
 
-                    if (BookService.AddNewBook(bookDetails, filePath))
+                    if (_bookService.AddNewBook(bookDetails, filePath))
                     {
                         Response.Write("<script>alert('Book Added Successfully!')</script>");
                         GridView1.DataBind();
@@ -101,7 +107,7 @@ namespace LibraryManagementApp
                     filePath = "~/book_inventory/" + fileName;
                 }
 
-                if (BookService.UpdateBook(bookDetails, filePath))
+                if (_bookService.UpdateBook(bookDetails, filePath))
                 {
                     Response.Write("<script>alert('Book Updated Successfully!')</script>");
                     GridView1.DataBind();
@@ -116,7 +122,7 @@ namespace LibraryManagementApp
         // Delete
         protected void Button1_Click(object sender, EventArgs e)
         {
-            if (BookService.DeleteBook(TextBox1.Text.Trim()))
+            if (_bookService.DeleteBook(TextBox1.Text.Trim()))
             {
                 Response.Write("<script>alert('Book Deleted Successfully!')</script>");
                 GridView1.DataBind();
@@ -130,7 +136,7 @@ namespace LibraryManagementApp
         // Go
         protected void Button4_Click(object sender, EventArgs e)
         {
-            var bookDetails = BookService.GetBookByID(TextBox1.Text.Trim());
+            var bookDetails = _bookService.GetBookByID(TextBox1.Text.Trim());
             if (bookDetails.Count > 0)
             {
                 TextBox2.Text = bookDetails["book_name"];
@@ -168,7 +174,7 @@ namespace LibraryManagementApp
             {
                 if (!(Cache["Authors"] is DataTable authorsTable) || !(Cache["Publishers"] is DataTable publishersTable))
                 {
-                    using (SqlConnection sqlConnection = new SqlConnection(connStr))
+                    using (SqlConnection sqlConnection = new SqlConnection(_connStr))
                     {
                         sqlConnection.Open();
 

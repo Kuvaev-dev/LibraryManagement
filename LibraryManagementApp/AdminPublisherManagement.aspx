@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Library.Master" AutoEventWireup="true" CodeBehind="AdminPublisherManagement.aspx.cs" Inherits="LibraryManagementApp.fontawesome.AdminPublisherManagement" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Library.Master" AutoEventWireup="true" CodeBehind="AdminPublisherManagement.aspx.cs" Inherits="LibraryManagementApp.AdminPublisherManagement" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
         $(document).ready(function () {
@@ -46,7 +46,6 @@
                                 <label>Publisher Name</label>
                                 <div class="form-group">
                                     <asp:TextBox ID="TextBox2" CssClass="form-control" placeholder="Name" runat="server"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="rfvPublisherName" runat="server" ControlToValidate="TextBox2" ErrorMessage="Publisher Name is required." CssClass="text-danger" Display="Dynamic" />
                                 </div>
                             </div>
                         </div>

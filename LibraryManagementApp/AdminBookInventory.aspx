@@ -54,15 +54,15 @@
                                         <asp:TextBox ID="TextBox1" CssClass="form-control" runat="server" placeholder="Book ID"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="rfvBookID" runat="server" ControlToValidate="TextBox1" ErrorMessage="Book ID is required." CssClass="text-danger" Display="Dynamic" />
                                         <asp:RegularExpressionValidator ID="revBookID" runat="server" ControlToValidate="TextBox1" ErrorMessage="Invalid Book ID format." ValidationExpression="^\d+$" CssClass="text-danger" Display="Dynamic" />
-                                        <asp:RequiredFieldValidator ID="rfvBookName" runat="server" ControlToValidate="TextBox2" ErrorMessage="Book Name is required." CssClass="text-danger" Display="Dynamic" />
-                                        <asp:Button ID="Button4" runat="server" Text="Go" CssClass="form-control btn btn-primary" OnClick="Button4_Click"/>
+                                        <asp:Button ID="Button4" runat="server" Text="Go" CssClass="form-control btn btn-primary" OnClick="Button4_Click" CausesValidation="false"/>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-8">
                                 <label>Book Name</label>
                                 <div class="form-group">
-                                    <asp:TextBox ID="TextBox2" CssClass="form-control" placeholder="Book Name" runat="server" ReadOnly="true"></asp:TextBox>
+                                    <asp:TextBox ID="TextBox2" CssClass="form-control" placeholder="Book Name" runat="server"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="rfvBookName" runat="server" ControlToValidate="TextBox2" ErrorMessage="Book Name is required." CssClass="text-danger" Display="Dynamic" />
                                 </div>
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                             <div class="col-md-4">
                                 <label>Edition</label>
                                 <div class="form-group">
-                                    <asp:TextBox ID="TextBox9" CssClass="form-control" placeholder="Edition" runat="server" ReadOnly="true"></asp:TextBox>
+                                    <asp:TextBox ID="TextBox9" CssClass="form-control" placeholder="Edition" runat="server"></asp:TextBox>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -127,7 +127,7 @@
                             <div class="col-md-4">
                                 <label>Actual Stock</label>
                                 <div class="form-group">
-                                    <asp:TextBox ID="TextBox4" CssClass="form-control" placeholder="Actual Stock" runat="server" ReadOnly="true" TextMode="Number"></asp:TextBox>
+                                    <asp:TextBox ID="TextBox4" CssClass="form-control" placeholder="Actual Stock" runat="server" TextMode="Number"></asp:TextBox>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -139,7 +139,7 @@
                             <div class="col-md-4">
                                 <label>Issued Books</label>
                                 <div class="form-group">
-                                    <asp:TextBox ID="TextBox7" CssClass="form-control" placeholder="Pages" runat="server" TextMode="Number" ReadOnly="true"></asp:TextBox>
+                                    <asp:TextBox ID="TextBox7" CssClass="form-control" placeholder="Pages" runat="server" TextMode="Number"></asp:TextBox>
                                 </div>
                             </div>
                         </div>

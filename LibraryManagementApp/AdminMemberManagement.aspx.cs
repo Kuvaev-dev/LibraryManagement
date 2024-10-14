@@ -1,11 +1,17 @@
-﻿using LibraryManagementApp.services;
+﻿using LibraryManagementApp.helpers;
+using LibraryManagementApp.services;
 using System;
 
 namespace LibraryManagementApp
 {
     public partial class AdminMemberManagement : System.Web.UI.Page
     {
-        public MemberService MemberService { get; set; }
+        private readonly IMemberService _memberService;
+
+        public AdminMemberManagement()
+        {
+            _memberService = (IMemberService)ServiceProviderConfig.ServiceProvider.GetService(typeof(IMemberService));
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -44,7 +50,7 @@ namespace LibraryManagementApp
 
         private void GetMemberByID()
         {
-            var memberDetails = MemberService.GetMemberByID(TextBox1.Text.Trim());
+            var memberDetails = _memberService.GetMemberByID(TextBox1.Text.Trim());
             if (memberDetails.Count > 0)
             {
                 TextBox2.Text = memberDetails["full_name"];
@@ -65,9 +71,9 @@ namespace LibraryManagementApp
 
         private void UpdateMemberStatusByID(string status)
         {
-            if (MemberService.IsMemberExists(TextBox1.Text.Trim()))
+            if (_memberService.IsMemberExists(TextBox1.Text.Trim()))
             {
-                if (MemberService.UpdateMemberStatusByID(TextBox1.Text.Trim(), status))
+                if (_memberService.UpdateMemberStatusByID(TextBox1.Text.Trim(), status))
                 {
                     ClearForm();
                     GridView1.DataBind();
@@ -86,9 +92,9 @@ namespace LibraryManagementApp
 
         private void DeleteMemberByID()
         {
-            if (MemberService.IsMemberExists(TextBox1.Text.Trim()))
+            if (_memberService.IsMemberExists(TextBox1.Text.Trim()))
             {
-                if (MemberService.DeleteMemberByID(TextBox1.Text.Trim()))
+                if (_memberService.DeleteMemberByID(TextBox1.Text.Trim()))
                 {
                     Response.Write("<script>alert('Member Deleted Successfully!')</script>");
                     ClearForm();

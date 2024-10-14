@@ -3,19 +3,26 @@ using System.Data;
 using System.Web.UI.WebControls;
 using System.Drawing;
 using LibraryManagementApp.services;
+using LibraryManagementApp.helpers;
+using LibraryManagementApp.models;
 
 namespace LibraryManagementApp
 {
     public partial class UserProfile : System.Web.UI.Page
     {
-        public UserService UserService { get; set; }
+        private readonly IUserService _userService;
+
+        public UserProfile()
+        {
+            _userService = (IUserService)ServiceProviderConfig.ServiceProvider.GetService(typeof(IUserService));
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["username"] == null || string.IsNullOrEmpty(Session["username"].ToString()))
             {
                 Response.Write("<script>alert('Session Expired! Login Again!')</script>");
-                Response.Redirect("User Login.aspx");
+                Response.Redirect("UserLogin.aspx");
             }
             else
             {
@@ -32,7 +39,7 @@ namespace LibraryManagementApp
             if (Session["username"] == null || string.IsNullOrEmpty(Session["username"].ToString()))
             {
                 Response.Write("<script>alert('Session Expired! Login Again!')</script>");
-                Response.Redirect("User Login.aspx");
+                Response.Redirect("UserLogin.aspx");
             }
             else
             {
@@ -44,7 +51,7 @@ namespace LibraryManagementApp
         {
             try
             {
-                DataTable dataTable = UserService.GetUserBookData(Session["username"].ToString());
+                DataTable dataTable = _userService.GetUserBookData(Session["member_id"].ToString());
                 GridView1.DataSource = dataTable;
                 GridView1.DataBind();
             }
@@ -58,7 +65,7 @@ namespace LibraryManagementApp
         {
             try
             {
-                var member = UserService.GetUserPersonalDetails(Session["username"].ToString());
+                var member = _userService.GetUserPersonalDetails(Session["member_id"].ToString());
                 if (member != null)
                 {
                     TextBox1.Text = member.FullName;
@@ -69,7 +76,7 @@ namespace LibraryManagementApp
                     TextBox6.Text = member.City;
                     TextBox7.Text = member.Pincode;
                     TextBox5.Text = member.FullAddress;
-                    TextBox8.Text = member.MemberId;
+                    TextBox8.Text = member.Username;
                     TextBox9.Text = member.Password;
 
                     Label1.Text = member.AccountStatus;
@@ -113,11 +120,11 @@ namespace LibraryManagementApp
                     Pincode = TextBox7.Text.Trim(),
                     FullAddress = TextBox5.Text.Trim(),
                     Password = password,
-                    MemberId = Session["username"].ToString(),
+                    Username = Session["username"].ToString(),
                     AccountStatus = "pending"
                 };
 
-                if (UserService.UpdateUserPersonalDetails(member))
+                if (_userService.UpdateUserPersonalDetails(member, Convert.ToInt32(Session["member_id"])))
                 {
                     Response.Write($"<script>alert('Your Details Updated Successfully!')</script>");
                     GetUserPersonalDetails();

@@ -45,6 +45,7 @@ namespace LibraryManagementApp
 
                     LinkButton7.Visible = true; // Hello User Link Button
                     LinkButton7.Text = $"Hello, Admin";
+                    LinkButton7.Enabled = false;
 
                     LinkButton6.Visible = false; // Admin Login Link Button
                     LinkButton11.Visible = true; // Author Management Link Button

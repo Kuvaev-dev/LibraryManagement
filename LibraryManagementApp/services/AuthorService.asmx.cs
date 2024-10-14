@@ -3,9 +3,21 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
 using System.Web.Services;
+using LibraryManagementApp.models;
 
 namespace LibraryManagementApp.services
 {
+
+    public interface IAuthorService
+    {
+        List<Author> GetAuthors();
+        Author GetAuthorByID(string authorId);
+        string AddNewAuthor(string authorId, string authorName);
+        string UpdateAuthor(string authorId, string authorName);
+        string DeleteAuthor(string authorId);
+        bool IsAuthorExists(string authorId);
+    }
+
     /// <summary>
     /// Сводное описание для AuthorService
     /// </summary>
@@ -14,7 +26,7 @@ namespace LibraryManagementApp.services
     [System.ComponentModel.ToolboxItem(false)]
     // Чтобы разрешить вызывать веб-службу из скрипта с помощью ASP.NET AJAX, раскомментируйте следующую строку. 
     // [System.Web.Script.Services.ScriptService]
-    public class AuthorService : System.Web.Services.WebService
+    public class AuthorService : System.Web.Services.WebService, IAuthorService
     {
         private readonly string connStr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
 
@@ -33,7 +45,7 @@ namespace LibraryManagementApp.services
                         {
                             authors.Add(new Author
                             {
-                                AuthorId = reader.GetInt32(0),
+                                AuthorId = reader.GetString(0),
                                 AuthorName = reader.GetString(1)
                             });
                         }
@@ -44,7 +56,7 @@ namespace LibraryManagementApp.services
         }
 
         [WebMethod]
-        public Author GetAuthorByID(int authorId)
+        public Author GetAuthorByID(string authorId)
         {
             using (SqlConnection sqlConnection = new SqlConnection(connStr))
             {
@@ -58,7 +70,7 @@ namespace LibraryManagementApp.services
                         {
                             return new Author
                             {
-                                AuthorId = reader.GetInt32(0),
+                                AuthorId = reader.GetString(0),
                                 AuthorName = reader.GetString(1)
                             };
                         }
@@ -72,7 +84,7 @@ namespace LibraryManagementApp.services
         }
 
         [WebMethod]
-        public string AddNewAuthor(int authorId, string authorName)
+        public string AddNewAuthor(string authorId, string authorName)
         {
             if (IsAuthorExists(authorId))
             {
@@ -101,7 +113,7 @@ namespace LibraryManagementApp.services
         }
 
         [WebMethod]
-        public string UpdateAuthor(int authorId, string authorName)
+        public string UpdateAuthor(string authorId, string authorName)
         {
             if (!IsAuthorExists(authorId))
             {
@@ -130,7 +142,7 @@ namespace LibraryManagementApp.services
         }
 
         [WebMethod]
-        public string DeleteAuthor(int authorId)
+        public string DeleteAuthor(string authorId)
         {
             if (!IsAuthorExists(authorId))
             {
@@ -157,7 +169,7 @@ namespace LibraryManagementApp.services
             }
         }
 
-        private bool IsAuthorExists(int authorId)
+        public bool IsAuthorExists(string authorId)
         {
             try
             {
@@ -181,11 +193,5 @@ namespace LibraryManagementApp.services
                 return false;
             }
         }
-    }
-
-    public class Author
-    {
-        public int AuthorId { get; set; }
-        public string AuthorName { get; set; }
     }
 }

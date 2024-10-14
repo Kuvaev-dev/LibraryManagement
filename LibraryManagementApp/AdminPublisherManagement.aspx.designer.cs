@@ -42,15 +42,6 @@ namespace LibraryManagementApp
         protected global::System.Web.UI.WebControls.TextBox TextBox2;
 
         /// <summary>
-        /// rfvPublisherName элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически созданное поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPublisherName;
-
-        /// <summary>
         /// Button1 элемент управления.
         /// </summary>
         /// <remarks>

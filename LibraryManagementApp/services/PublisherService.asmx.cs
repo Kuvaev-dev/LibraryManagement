@@ -5,6 +5,15 @@ using System.Web.Services;
 
 namespace LibraryManagementApp.services
 {
+    public interface IPublisherService
+    {
+        bool IsPublisherExists(string publisherId);
+        bool AddNewPublisher(string publisherId, string publisherName);
+        bool UpdatePublisher(string publisherId, string publisherName);
+        bool DeletePublisher(string publisherId);
+        Dictionary<string, string> GetPublisherByID(string publisherId);
+    }
+
     /// <summary>
     /// Сводное описание для PublisherService
     /// </summary>
@@ -13,7 +22,7 @@ namespace LibraryManagementApp.services
     [System.ComponentModel.ToolboxItem(false)]
     // Чтобы разрешить вызывать веб-службу из скрипта с помощью ASP.NET AJAX, раскомментируйте следующую строку. 
     // [System.Web.Script.Services.ScriptService]
-    public class PublisherService : WebService
+    public class PublisherService : WebService, IPublisherService
     {
         private readonly string connStr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
 

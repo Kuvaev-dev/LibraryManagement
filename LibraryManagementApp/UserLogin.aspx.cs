@@ -1,11 +1,17 @@
-﻿using LibraryManagementApp.services;
+﻿using LibraryManagementApp.helpers;
+using LibraryManagementApp.services;
 using System;
 
 namespace LibraryManagementApp
 {
     public partial class UserLogin : System.Web.UI.Page
     {
-        public AuthenticationService AuthService { get; set; }
+        private readonly IAuthenticationService _authService;
+
+        public UserLogin()
+        {
+            _authService = (IAuthenticationService)ServiceProviderConfig.ServiceProvider.GetService(typeof(IAuthenticationService));
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -16,7 +22,7 @@ namespace LibraryManagementApp
         {
             try
             {
-                var result = AuthService.VerifyUserCredentials(TextBox1.Text.Trim(), TextBox2.Text.Trim());
+                var result = _authService.VerifyUserCredentials(TextBox1.Text.Trim(), TextBox2.Text.Trim());
 
                 if (result.IsSuccess)
                 {
@@ -26,8 +32,7 @@ namespace LibraryManagementApp
                     Session["fullname"] = result.FullName;
                     Session["role"] = "user";
                     Session["status"] = result.Status;
-
-                    Response.Redirect("Home.aspx");
+                    Session["member_id"] = result.MemberId;
                 }
                 else
                 {
@@ -39,5 +44,6 @@ namespace LibraryManagementApp
                 Response.Write($"<script>alert('Error: {ex.Message}')</script>");
             }
         }
+
     }
 }

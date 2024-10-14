@@ -1,11 +1,18 @@
-﻿using LibraryManagementApp.services;
+﻿using LibraryManagementApp.helpers;
+using LibraryManagementApp.models;
+using LibraryManagementApp.services;
 using System;
 
 namespace LibraryManagementApp
 {
     public partial class UserSignUp : System.Web.UI.Page
     {
-        public UserService UserService { get; set; }
+        private readonly IUserService _userService;
+
+        public UserSignUp()
+        {
+            _userService = (IUserService)ServiceProviderConfig.ServiceProvider.GetService(typeof(IUserService));
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -14,7 +21,7 @@ namespace LibraryManagementApp
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            if (UserService.IsMemberExists(TextBox8.Text.Trim()))
+            if (_userService.IsMemberExists(TextBox8.Text.Trim(), TextBox4.Text.Trim()))
                 Response.Write($"<script>alert('Member Already Exists!')</script>");
             else
                 SignUpNewMember();
@@ -34,11 +41,11 @@ namespace LibraryManagementApp
                     City = TextBox6.Text.Trim(),
                     Pincode = TextBox7.Text.Trim(),
                     FullAddress = TextBox5.Text.Trim(),
-                    MemberId = TextBox8.Text.Trim(),
+                    Username = TextBox8.Text.Trim(),
                     Password = TextBox9.Text.Trim()
                 };
 
-                if (UserService.SignUpNewMember(member))
+                if (_userService.SignUpNewMember(member))
                 {
                     Response.Write("<script>alert('Sign Up Successful. Now go to Login and Authorize yourself.')</script>");
                 }

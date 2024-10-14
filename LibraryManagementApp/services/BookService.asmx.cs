@@ -6,6 +6,15 @@ using System.Web.Services;
 
 namespace LibraryManagementApp.services
 {
+    public interface IBookService
+    {
+        bool IsBookExists(string bookId, string bookName);
+        bool AddNewBook(Dictionary<string, string> bookDetails, string filePath);
+        bool UpdateBook(Dictionary<string, string> bookDetails, string filePath);
+        bool DeleteBook(string bookId);
+        Dictionary<string, string> GetBookByID(string bookId);
+    }
+
     /// <summary>
     /// Сводное описание для BookService
     /// </summary>
@@ -14,7 +23,7 @@ namespace LibraryManagementApp.services
     [System.ComponentModel.ToolboxItem(false)]
     // Чтобы разрешить вызывать веб-службу из скрипта с помощью ASP.NET AJAX, раскомментируйте следующую строку. 
     // [System.Web.Script.Services.ScriptService]
-    public class BookService : WebService
+    public class BookService : WebService, IBookService
     {
         private readonly string connStr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
 

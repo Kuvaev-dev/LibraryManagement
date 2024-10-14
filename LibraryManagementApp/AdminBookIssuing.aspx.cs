@@ -1,12 +1,17 @@
-﻿using LibraryManagementApp.services;
+﻿using LibraryManagementApp.helpers;
+using LibraryManagementApp.services;
 using System;
 
 namespace LibraryManagementApp
 {
     public partial class AdminBookIssuing : System.Web.UI.Page
     {
-        public BookIssuingService BookIssuingService { get; set; }
+        private readonly IBookIssuingService _bookIssuingService;
 
+        public AdminBookIssuing()
+        {
+            _bookIssuingService = (IBookIssuingService)ServiceProviderConfig.ServiceProvider.GetService(typeof(IBookIssuingService));
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -16,15 +21,15 @@ namespace LibraryManagementApp
         // Issue
         protected void Button1_Click(object sender, EventArgs e)
         {
-            if (BookIssuingService.IsBookExists(TextBox1.Text.Trim()) && BookIssuingService.IsMemberExists(TextBox2.Text.Trim()))
+            if (_bookIssuingService.IsBookExists(TextBox1.Text.Trim()) && _bookIssuingService.IsMemberExists(TextBox2.Text.Trim()))
             {
-                if (BookIssuingService.IsIssuedEntryExists(TextBox1.Text.Trim(), TextBox2.Text.Trim()))
+                if (_bookIssuingService.IsIssuedEntryExists(TextBox1.Text.Trim(), TextBox2.Text.Trim()))
                 {
                     Response.Write("<script>alert('This Member already Has This Book!')</script>");
                 }
                 else
                 {
-                    BookIssuingService.IssueBook(
+                    _bookIssuingService.IssueBook(
                         TextBox1.Text.Trim(),
                         TextBox4.Text.Trim(),
                         TextBox2.Text.Trim(),
@@ -45,11 +50,11 @@ namespace LibraryManagementApp
         // Return
         protected void Button3_Click(object sender, EventArgs e)
         {
-            if (BookIssuingService.IsBookExists(TextBox1.Text.Trim()) && BookIssuingService.IsMemberExists(TextBox2.Text.Trim()))
+            if (_bookIssuingService.IsBookExists(TextBox1.Text.Trim()) && _bookIssuingService.IsMemberExists(TextBox2.Text.Trim()))
             {
-                if (BookIssuingService.IsIssuedEntryExists(TextBox1.Text.Trim(), TextBox2.Text.Trim()))
+                if (_bookIssuingService.IsIssuedEntryExists(TextBox1.Text.Trim(), TextBox2.Text.Trim()))
                 {
-                    BookIssuingService.ReturnBook(TextBox1.Text.Trim(), TextBox2.Text.Trim());
+                    _bookIssuingService.ReturnBook(TextBox1.Text.Trim(), TextBox2.Text.Trim());
                     Response.Write("<script>alert('Book Returned Successfully!')</script>");
                     GridView1.DataBind();
                 }
@@ -69,7 +74,7 @@ namespace LibraryManagementApp
         {
             try
             {
-                var names = BookIssuingService.GetBookAndMemberNames(TextBox1.Text.Trim(), TextBox2.Text.Trim());
+                var names = _bookIssuingService.GetBookAndMemberNames(TextBox1.Text.Trim(), TextBox2.Text.Trim());
                 TextBox4.Text = names.bookName;
                 TextBox3.Text = names.memberName;
             }

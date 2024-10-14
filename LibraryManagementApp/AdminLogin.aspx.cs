@@ -1,22 +1,28 @@
-﻿using LibraryManagementApp.services;
+﻿using LibraryManagementApp.helpers;
+using LibraryManagementApp.services;
 using System;
 
 namespace LibraryManagementApp
 {
     public partial class AdminLogin : System.Web.UI.Page
     {
-        public AuthenticationService AuthService { get; set; }
+        private readonly IAuthenticationService _authService;
+
+        public AdminLogin()
+        {
+            _authService = (IAuthenticationService)ServiceProviderConfig.ServiceProvider.GetService(typeof(IAuthenticationService));
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         protected void Button1_Click(object sender, EventArgs e)
         {
             try
             {
-                var result = AuthService.VerifyAdminCredentials(TextBox1.Text.Trim(), TextBox2.Text.Trim());
+                var result = _authService.VerifyAdminCredentials(TextBox1.Text.Trim(), TextBox2.Text.Trim());
 
                 if (result.IsSuccess)
                 {

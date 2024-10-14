@@ -66,31 +66,31 @@
                                 <div class="form-group">
                                     <asp:DropDownList ID="DropDownList1" CssClass="form-control" runat="server">
                                         <asp:ListItem Text="Select" Value="select" />
-                                        <asp:ListItem Text="Vinnytsia" Value="vinnytsia" />
-                                        <asp:ListItem Text="Volyn" Value="volyn" />
-                                        <asp:ListItem Text="Dnipropetrovsk" Value="dnipropetrovsk" />
-                                        <asp:ListItem Text="Donetsk" Value="donetsk" />
-                                        <asp:ListItem Text="Zhytomyr" Value="zhytomyr" />
-                                        <asp:ListItem Text="Zakarpattia" Value="zakarpattia" />
-                                        <asp:ListItem Text="Zaporizhzhia" Value="zaporizhzhia" />
-                                        <asp:ListItem Text="Ivano-Frankivsk" Value="ivano-frankivsk" />
-                                        <asp:ListItem Text="Kyiv" Value="kyiv" />
-                                        <asp:ListItem Text="Kirovohrad" Value="kirovohrad" />
-                                        <asp:ListItem Text="Luhansk" Value="luhansk" />
-                                        <asp:ListItem Text="Lviv" Value="lviv" />
-                                        <asp:ListItem Text="Mykolaiv" Value="mykolaiv" />
-                                        <asp:ListItem Text="Odesa" Value="odesa" />
-                                        <asp:ListItem Text="Poltava" Value="poltava" />
-                                        <asp:ListItem Text="Rivne" Value="rivne" />
-                                        <asp:ListItem Text="Sumy" Value="sumy" />
-                                        <asp:ListItem Text="Ternopil" Value="ternopil" />
-                                        <asp:ListItem Text="Kharkiv" Value="kharkiv" />
-                                        <asp:ListItem Text="Kherson" Value="kherson" />
-                                        <asp:ListItem Text="Khmelnytskyi" Value="khmelnytskyi" />
-                                        <asp:ListItem Text="Cherkasy" Value="cherkasy" />
-                                        <asp:ListItem Text="Chernivtsi" Value="chernivtsi" />
-                                        <asp:ListItem Text="Chernihiv" Value="chernihiv" />
-                                        <asp:ListItem Text="Kyiv City" Value="kyiv-city" />
+                                        <asp:ListItem Text="Vinnytsia" Value="Vinnytsia" />
+                                        <asp:ListItem Text="Volyn" Value="Volyn" />
+                                        <asp:ListItem Text="Dnipropetrovsk" Value="Dnipropetrovsk" />
+                                        <asp:ListItem Text="Donetsk" Value="Donetsk" />
+                                        <asp:ListItem Text="Zhytomyr" Value="Zhytomyr" />
+                                        <asp:ListItem Text="Zakarpattia" Value="Zakarpattia" />
+                                        <asp:ListItem Text="Zaporizhzhia" Value="Zaporizhzhia" />
+                                        <asp:ListItem Text="Ivano-Frankivsk" Value="Ivano-Frankivsk" />
+                                        <asp:ListItem Text="Kyiv" Value="Kyiv" />
+                                        <asp:ListItem Text="Kirovohrad" Value="Kirovohrad" />
+                                        <asp:ListItem Text="Luhansk" Value="Luhansk" />
+                                        <asp:ListItem Text="Lviv" Value="Lviv" />
+                                        <asp:ListItem Text="Mykolaiv" Value="Mykolaiv" />
+                                        <asp:ListItem Text="Odesa" Value="Odesa" />
+                                        <asp:ListItem Text="Poltava" Value="Poltava" />
+                                        <asp:ListItem Text="Rivne" Value="Rivne" />
+                                        <asp:ListItem Text="Sumy" Value="Sumy" />
+                                        <asp:ListItem Text="Ternopil" Value="Ternopil" />
+                                        <asp:ListItem Text="Kharkiv" Value="Kharkiv" />
+                                        <asp:ListItem Text="Kherson" Value="Kherson" />
+                                        <asp:ListItem Text="Khmelnytskyi" Value="Khmelnytskyi" />
+                                        <asp:ListItem Text="Cherkasy" Value="Cherkasy" />
+                                        <asp:ListItem Text="Chernivtsi" Value="Chernivtsi" />
+                                        <asp:ListItem Text="Chernihiv" Value="Chernihiv" />
+                                        <asp:ListItem Text="Kyiv City" Value="Kyiv-city" />
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvState" runat="server" ControlToValidate="DropDownList1" InitialValue="select" ErrorMessage="State is required." CssClass="text-danger" Display="Dynamic" />
                                 </div>
@@ -131,10 +131,10 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <label>User ID</label>
+                                <label>User Name</label>
                                 <div class="form-group">
-                                    <asp:TextBox ID="TextBox8" CssClass="form-control" placeholder="User  ID" runat="server"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TextBox8" ErrorMessage="User  ID is required." CssClass="text-danger" Display="Dynamic" />
+                                    <asp:TextBox ID="TextBox8" CssClass="form-control" placeholder="User Name" runat="server"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TextBox8" ErrorMessage="User Name is required." CssClass="text-danger" Display="Dynamic" />
                                 </div>
                             </div>
                             <div class="col-md-6">

@@ -48,7 +48,6 @@
                                 <label>Author Name</label>
                                 <div class="form-group">
                                     <asp:TextBox ID="TextBox2" CssClass="form-control" placeholder="Name" runat="server"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="TextBox2" ErrorMessage="Author Name is required" CssClass="text-danger" Display="Dynamic" />
                                 </div>
                             </div>
                         </div>
