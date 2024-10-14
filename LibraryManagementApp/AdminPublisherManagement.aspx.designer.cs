@@ -7,7 +7,7 @@
 // </автоматически создаваемое>
 //------------------------------------------------------------------------------
 
-namespace LibraryManagementApp.fontawesome
+namespace LibraryManagementApp
 {
 
 

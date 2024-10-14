@@ -8,7 +8,7 @@ namespace LibraryManagementApp
         {
             try
             {
-                if (Session["role"].Equals(""))
+                if (Session["role"] == null || Session["role"].Equals(""))
                 {
                     LinkButton1.Visible = true; // User Login Link Button
                     LinkButton2.Visible = true; // Sign Up Link Button

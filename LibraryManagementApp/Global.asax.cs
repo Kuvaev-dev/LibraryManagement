@@ -1,16 +1,16 @@
 ﻿using Autofac.Integration.Web;
 using Autofac;
-using System;
 using LibraryManagementApp.services;
+using System;
 
 namespace LibraryManagementApp
 {
-    public class Global : System.Web.HttpApplication, IContainerProviderAccessor
+    public class Global : System.Web.HttpApplication
     {
         // Provider that holds the application container.
         static IContainerProvider _containerProvider;
 
-        // Instance property that will be used by Autofac HttpModules // to resolve and inject dependencies.
+        // Instance property that will be used by Autofac HttpModules to resolve and inject dependencies.
         public IContainerProvider ContainerProvider
         {
             get { return _containerProvider; }
@@ -20,7 +20,7 @@ namespace LibraryManagementApp
         {
             var builder = new ContainerBuilder();
 
-            // Register your service here
+            // Register your services here
             builder.RegisterType<AuthenticationService>().AsSelf().InstancePerRequest();
             builder.RegisterType<AuthorService>().AsSelf().InstancePerRequest();
             builder.RegisterType<BookIssuingService>().AsSelf().InstancePerRequest();
@@ -45,6 +45,36 @@ namespace LibraryManagementApp
 
             // Set the provider
             _containerProvider = new ContainerProvider(container);
+        }
+
+        protected void Session_Start(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Application_AuthenticateRequest(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Session_End(object sender, EventArgs e)
+        {
+            
+        }
+
+        protected void Application_End(object sender, EventArgs e)
+        {
+
         }
     }
 }

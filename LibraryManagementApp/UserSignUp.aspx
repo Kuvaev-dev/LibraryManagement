@@ -66,6 +66,31 @@
                                 <div class="form-group">
                                     <asp:DropDownList ID="DropDownList1" CssClass="form-control" runat="server">
                                         <asp:ListItem Text="Select" Value="select" />
+                                        <asp:ListItem Text="Vinnytsia" Value="vinnytsia" />
+                                        <asp:ListItem Text="Volyn" Value="volyn" />
+                                        <asp:ListItem Text="Dnipropetrovsk" Value="dnipropetrovsk" />
+                                        <asp:ListItem Text="Donetsk" Value="donetsk" />
+                                        <asp:ListItem Text="Zhytomyr" Value="zhytomyr" />
+                                        <asp:ListItem Text="Zakarpattia" Value="zakarpattia" />
+                                        <asp:ListItem Text="Zaporizhzhia" Value="zaporizhzhia" />
+                                        <asp:ListItem Text="Ivano-Frankivsk" Value="ivano-frankivsk" />
+                                        <asp:ListItem Text="Kyiv" Value="kyiv" />
+                                        <asp:ListItem Text="Kirovohrad" Value="kirovohrad" />
+                                        <asp:ListItem Text="Luhansk" Value="luhansk" />
+                                        <asp:ListItem Text="Lviv" Value="lviv" />
+                                        <asp:ListItem Text="Mykolaiv" Value="mykolaiv" />
+                                        <asp:ListItem Text="Odesa" Value="odesa" />
+                                        <asp:ListItem Text="Poltava" Value="poltava" />
+                                        <asp:ListItem Text="Rivne" Value="rivne" />
+                                        <asp:ListItem Text="Sumy" Value="sumy" />
+                                        <asp:ListItem Text="Ternopil" Value="ternopil" />
+                                        <asp:ListItem Text="Kharkiv" Value="kharkiv" />
+                                        <asp:ListItem Text="Kherson" Value="kherson" />
+                                        <asp:ListItem Text="Khmelnytskyi" Value="khmelnytskyi" />
+                                        <asp:ListItem Text="Cherkasy" Value="cherkasy" />
+                                        <asp:ListItem Text="Chernivtsi" Value="chernivtsi" />
+                                        <asp:ListItem Text="Chernihiv" Value="chernihiv" />
+                                        <asp:ListItem Text="Kyiv City" Value="kyiv-city" />
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvState" runat="server" ControlToValidate="DropDownList1" InitialValue="select" ErrorMessage="State is required." CssClass="text-danger" Display="Dynamic" />
                                 </div>

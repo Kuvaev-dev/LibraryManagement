@@ -53,19 +53,19 @@
                     </ul>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item active">
-                            <asp:LinkButton class="nav-link" ID="LinkButton4" runat="server" OnClick="LinkButton4_Click" >View Books</asp:LinkButton>
+                            <asp:LinkButton class="nav-link" CausesValidation="false" ID="LinkButton4" runat="server" OnClick="LinkButton4_Click" >View Books</asp:LinkButton>
                         </li>
                         <li class="nav-item active">
-                            <asp:LinkButton class="nav-link" ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" >User Login</asp:LinkButton>
+                            <asp:LinkButton class="nav-link" CausesValidation="false" ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" >User Login</asp:LinkButton>
                         </li>
                         <li class="nav-item active">
-                            <asp:LinkButton class="nav-link" ID="LinkButton2" runat="server" OnClick="LinkButton2_Click" >Sign Up</asp:LinkButton>
+                            <asp:LinkButton class="nav-link" CausesValidation="false" ID="LinkButton2" runat="server" OnClick="LinkButton2_Click" >Sign Up</asp:LinkButton>
                         </li>
                         <li class="nav-item active">
-                            <asp:LinkButton class="nav-link" ID="LinkButton3" runat="server" OnClick="LinkButton3_Click" Visible="false">Logout</asp:LinkButton>
+                            <asp:LinkButton class="nav-link" CausesValidation="false" ID="LinkButton3" runat="server" OnClick="LinkButton3_Click" Visible="false">Logout</asp:LinkButton>
                         </li>
                         <li class="nav-item active">
-                            <asp:LinkButton class="nav-link" ID="LinkButton7" runat="server" OnClick="LinkButton7_Click" Visible="false">Hello user</asp:LinkButton>
+                            <asp:LinkButton class="nav-link" CausesValidation="false" ID="LinkButton7" runat="server" OnClick="LinkButton7_Click" Visible="false">Hello user</asp:LinkButton>
                         </li>
                     </ul>
                 </div>
@@ -82,12 +82,12 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                         <p class="footerlinks">
-                            <asp:LinkButton ID="LinkButton6" CssClass="footer-link" runat="server" OnClick="LinkButton6_Click" ForeColor="White" Font-Underline="false">Admin Login</asp:LinkButton>
-                            <asp:LinkButton ID="LinkButton11" CssClass="footer-link" runat="server" OnClick="LinkButton11_Click" Visible="false" ForeColor="White" Font-Underline="false">Author Management</asp:LinkButton>
-                            <asp:LinkButton ID="LinkButton12" CssClass="footer-link" runat="server" OnClick="LinkButton12_Click" Visible="false" ForeColor="White" Font-Underline="false">Publisher Management</asp:LinkButton>
-                            <asp:LinkButton ID="LinkButton8" CssClass="footer-link" runat="server" OnClick="LinkButton8_Click" Visible="false" ForeColor="White" Font-Underline="false">Book Inventory</asp:LinkButton>
-                            <asp:LinkButton ID="LinkButton9" CssClass="footer-link" runat="server" OnClick="LinkButton9_Click" Visible="false" ForeColor="White" Font-Underline="false">Book Issuing</asp:LinkButton>
-                            <asp:LinkButton ID="LinkButton10" CssClass="footer-link" runat="server" OnClick="LinkButton10_Click" Visible="false" ForeColor="White" Font-Underline="false">Member Management</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton6" CssClass="footer-link" runat="server" OnClick="LinkButton6_Click" ForeColor="White" Font-Underline="false" CausesValidation="false">Admin Login</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton11" CssClass="footer-link" runat="server" OnClick="LinkButton11_Click" Visible="false" ForeColor="White" Font-Underline="false" CausesValidation="false">Author Management</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton12" CssClass="footer-link" runat="server" OnClick="LinkButton12_Click" Visible="false" ForeColor="White" Font-Underline="false" CausesValidation="false">Publisher Management</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton8" CssClass="footer-link" runat="server" OnClick="LinkButton8_Click" Visible="false" ForeColor="White" Font-Underline="false" CausesValidation="false">Book Inventory</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton9" CssClass="footer-link" runat="server" OnClick="LinkButton9_Click" Visible="false" ForeColor="White" Font-Underline="false" CausesValidation="false">Book Issuing</asp:LinkButton>
+                            <asp:LinkButton ID="LinkButton10" CssClass="footer-link" runat="server" OnClick="LinkButton10_Click" Visible="false" ForeColor="White" Font-Underline="false" CausesValidation="false">Member Management</asp:LinkButton>
                         </p>
                     </div>
                 </div>
