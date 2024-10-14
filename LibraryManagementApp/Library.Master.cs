@@ -50,6 +50,7 @@ namespace LibraryManagementApp
                     LinkButton6.Visible = false; // Admin Login Link Button
                     LinkButton11.Visible = true; // Author Management Link Button
                     LinkButton12.Visible = true; // Publisher Management Link Button
+                    LinkButton10.Visible = true; // Publisher Management Link Button
                     LinkButton8.Visible = true; // Book Inventory Link Button
                     LinkButton9.Visible = true; // Book Issuing Link Button
                 }
@@ -126,6 +127,8 @@ namespace LibraryManagementApp
             LinkButton8.Visible = false; // Book Inventory Link Button
             LinkButton9.Visible = false; // Book Issuing Link Button
             LinkButton10.Visible = false; // Member Management Link Button
+
+            Response.Redirect("Home.aspx");
         }
 
         // View Profile

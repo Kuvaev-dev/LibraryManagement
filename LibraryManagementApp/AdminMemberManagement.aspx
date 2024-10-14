@@ -1,10 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Library.Master" AutoEventWireup="true" CodeBehind="AdminMemberManagement.aspx.cs" Inherits="LibraryManagementApp.AdminMemberManagement" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-     <script type="text/javascript">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript">
         $(document).ready(function () {
             $('.table').prepend($('<thead></thead>').append($(this).find('tr:first'))).dataTable();
-        })
-     </script>
+        });
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid">
@@ -12,26 +13,22 @@
             <div class="col-md-5">
                 <div class="card">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col">
-                                <center>
-                                    <h4>Member Details</h4>
-                                </center>
+                        <div class="row mb-1">
+                            <div class="col text-center">
+                                <h4>Member Details</h4>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <center>
-                                    <img src="assets/imgs/generaluser.png" style="width:100px"/>
-                                </center>
+                        <div class="row mb-1">
+                            <div class="col text-center">
+                                <img src="assets/imgs/generaluser.png" style="width:100px" class="mb-1"/>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb-1">
                             <div class="col">
                                 <hr>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb-1">
                             <div class="col-md-3">
                                 <label>Member ID</label>
                                 <div class="form-group">
@@ -68,7 +65,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb-1">
                             <div class="col-md-3">
                                 <label>DOB</label>
                                 <div class="form-group">
@@ -88,7 +85,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb-1">
                             <div class="col-md-4">
                                 <label>State</label>
                                 <div class="form-group">
@@ -108,7 +105,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb-1">
                             <div class="col-12">
                                 <label>Full Postal Address</label>
                                 <div class="form-group">
@@ -116,44 +113,44 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb-1">
                             <div class="col-8 mx-auto">
                                 <asp:Button ID="Button1" runat="server" Text="Delete User Permanently" class="btn btn-lg btn-block btn-danger" OnClick="Button1_Click"/>
                             </div>
                         </div>
                     </div>
                 </div>
-                <a href="Home.aspx"><< Back to Home</a>
+                <a href="Home.aspx" class="d-block text-center mt-3 mb-1"><< Back to Home</a>
             </div>
             <div class="col-md-7">
                 <div class="card">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col">
-                                <center>
-                                    <h4>Member List</h4>
-                                </center>
+                        <div class="row mb-1">
+                            <div class="col text-center">
+                                <h4>Member List</h4>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb-1">
                             <div class="col">
                                 <hr>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb-1">
                             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:elibraryDB %>" SelectCommand="SELECT * FROM [member_master_tbl]"></asp:SqlDataSource>
                             <div class="col">
-                                <asp:GridView CssClass="table table-striped table-bordered" ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="member_id" DataSourceID="SqlDataSource1">
-                                    <Columns>
-                                        <asp:BoundField DataField="member_id" HeaderText="ID" ReadOnly="True" SortExpression="member_id" />
-                                        <asp:BoundField DataField="full_name" HeaderText="Full Name" SortExpression="full_name" />
-                                        <asp:BoundField DataField="account_status" HeaderText="Account Status" SortExpression="account_status" />
-                                        <asp:BoundField DataField="contact_no" HeaderText="Contact №" SortExpression="contact_no" />
-                                        <asp:BoundField DataField="email" HeaderText="Email ID" SortExpression="email" />
-                                        <asp:BoundField DataField="state" HeaderText="State" SortExpression="state" />
-                                        <asp:BoundField DataField="city" HeaderText="City" SortExpression="city" />
-                                    </Columns>
-                                </asp:GridView>
+                                <div class="table-responsive">
+                                    <asp:GridView CssClass="table table-striped table-bordered" ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="member_id" DataSourceID="SqlDataSource1">
+                                        <Columns>
+                                            <asp:BoundField DataField="member_id" HeaderText="ID" ReadOnly="True" SortExpression="member_id" />
+                                            <asp:BoundField DataField="full_name" HeaderText="Full Name" SortExpression="full_name" />
+                                            <asp:BoundField DataField="account_status" HeaderText="Account Status" SortExpression="account_status" />
+                                            <asp:BoundField DataField="contact_no" HeaderText="Contact №" SortExpression="contact_no" />
+                                            <asp:BoundField DataField="email" HeaderText="Email ID" SortExpression="email" />
+                                            <asp:BoundField DataField="state" HeaderText="State" SortExpression="state" />
+                                            <asp:BoundField DataField="city" HeaderText="City" SortExpression="city" />
+                                        </Columns>
+                                    </asp:GridView>
+                                </div>
                             </div>
                         </div>
                     </div>

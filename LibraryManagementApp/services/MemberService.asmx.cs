@@ -72,8 +72,8 @@ namespace LibraryManagementApp.services
                                     memberDetails["email"] = reader["email"].ToString();
                                     memberDetails["state"] = reader["state"].ToString();
                                     memberDetails["city"] = reader["city"].ToString();
-                                    memberDetails["pin_code"] = reader["pin_code"].ToString();
-                                    memberDetails["postal_address"] = reader["postal_address"].ToString();
+                                    memberDetails["pincode"] = reader["pincode"].ToString();
+                                    memberDetails["full_address"] = reader["full_address"].ToString();
                                 }
                             }
                         }

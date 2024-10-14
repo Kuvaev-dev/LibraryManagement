@@ -1,31 +1,28 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Library.Master" AutoEventWireup="true" CodeBehind="UserProfile.aspx.cs" Inherits="LibraryManagementApp.UserProfile" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Library.Master" AutoEventWireup="true" CodeBehind="User Profile.aspx.cs" Inherits="LibraryManagementApp.UserProfile" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript">
         $(document).ready(function () {
             $('.table').prepend($('<thead></thead>').append($(this).find('tr:first'))).dataTable();
-        })
+        });
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-5">
-                <div class="card">
+                <div class="card mt-4">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col">
-                                <center>
-                                    <img src="assets/imgs/generaluser.png" style="width:150px" />
-                                </center>
+                        <div class="row mb-3">
+                            <div class="col text-center">
+                                <img src="assets/imgs/generaluser.png" style="width:150px" class="mb-3" />
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col">
-                                <center>
-                                    <h4>Your Profile</h4>
-                                    <span>Account Status - </span>
-                                    <asp:Label ID="Label1" CssClass="badge rounded-pill text-bg-info text-white" runat="server" Text="Status"></asp:Label>
-                                </center>
+                            <div class="col text-center">
+                                <h4>Your Profile</h4>
+                                <span>Account Status - </span>
+                                <asp:Label ID="Label1" CssClass="badge rounded-pill text-bg-info text-white" runat="server" Text="Status"></asp:Label>
                             </div>
                         </div>
                         <div class="row">
@@ -33,7 +30,7 @@
                                 <hr />
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb-1">
                             <div class="col-md-6">
                                 <label>Full Name</label>
                                 <div class="form-group">
@@ -49,7 +46,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb-1">
                             <div class="col-md-6">
                                 <label>Contact №</label>
                                 <div class="form-group">
@@ -67,7 +64,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb-1">
                             <div class="col-md-4">
                                 <label>State</label>
                                 <div class="form-group">
@@ -93,7 +90,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb-1">
                             <div class="col">
                                 <label>Full Address</label>
                                 <div class="form-group">
@@ -102,20 +99,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <center>
-                                    <div class="form-group text-center">
-                                        <span class="badge rounded-pill text-bg-info text-white">Login Credentials</span>
-                                    </div>
-                                </center>
+                        <div class="row mb-1">
+                            <div class="col text-center">
+                                <div class="form-group">
+                                    <span class="badge rounded-pill text-bg-info text-white">Login Credentials</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb-1">
                             <div class="col-md-4">
                                 <label>User ID</label>
                                 <div class="form-group">
-                                    <asp:TextBox ID="TextBox8" CssClass="form-control" placeholder="User ID" runat="server" ReadOnly="true"></asp:TextBox>
+                                    <asp:TextBox ID="TextBox8" CssClass="form-control" placeholder="User  ID" runat="server" ReadOnly="true"></asp:TextBox>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -131,43 +126,37 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-8 mx-auto">
-                                <center>
-                                    <div class="form-group">
-                                        <asp:Button ID="Button1" class="btn btn-primary btn-block btn-lg" runat="server" Text="Update" OnClick="Button1_Click" />
-                                    </div>
-                                </center>
+                        <div class="row mb-1">
+                            <div class="col-8 mx-auto text-center">
+                                <div class="form-group">
+                                    <asp:Button ID="Button1" class="btn btn-primary btn-block btn-lg" runat="server" Text="Update" OnClick="Button1_Click" />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <a href="Home.aspx"><< Back to Home</a>
+                <a href="Home.aspx" class="d-block text-center mt-3 mb-3"><< Back to Home</a>
             </div>
             <div class="col-md-7">
-                <div class="card">
+                <div class="card mt-4">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col">
-                                <center>
-                                    <img src="assets/imgs/books1.png" style="width:100px"/>
-                                </center>
+                        <div class="row mb-1">
+                            <div class="col text-center">
+                                <img src="assets/imgs/books1.png" style="width:100px" class="mb-1"/>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <center>
-                                    <h4>Your Issued Books</h4>
-                                    <asp:Label ID="Label2" CssClass="badge rounded-pill text-bg-info text-white" runat="server" Text="Your Books Info"></asp:Label>
-                                </center>
+                        <div class="row mb-1">
+                            <div class="col text-center">
+                                <h4>Your Issued Books</h4>
+                                <asp:Label ID="Label2" CssClass="badge rounded-pill text-bg-info text-white" runat="server" Text="Your Books Info"></asp:Label>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb-1">
                             <div class="col">
                                 <hr>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb-1">
                             <div class="col">
                                 <asp:GridView CssClass="table table-striped table-bordered" ID="GridView1" runat="server" OnRowDataBound="GridView1_RowDataBound"></asp:GridView>
                             </div>

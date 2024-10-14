@@ -60,8 +60,8 @@ namespace LibraryManagementApp
                 TextBox4.Text = memberDetails["email"];
                 TextBox9.Text = memberDetails["state"];
                 TextBox10.Text = memberDetails["city"];
-                TextBox11.Text = memberDetails["pin_code"];
-                TextBox6.Text = memberDetails["postal_address"];
+                TextBox11.Text = memberDetails["pincode"];
+                TextBox6.Text = memberDetails["full_address"];
             }
             else
             {
