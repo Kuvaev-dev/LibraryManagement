@@ -132,6 +132,7 @@
     <Content Include="css\customstylesheet.css" />
     <Content Include="datatables\css\dataTables.dataTables.min.css" />
     <Content Include="datatables\js\dataTables.min.js" />
+    <Content Include="db_script\elibraryDB.sql" />
     <Content Include="fontawesome\css\all.css" />
     <Content Include="fontawesome\css\all.min.css" />
     <Content Include="fontawesome\css\brands.css" />
