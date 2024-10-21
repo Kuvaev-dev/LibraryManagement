@@ -177,7 +177,7 @@ namespace LibraryManagementApp.services
                 using (SqlConnection sqlConnection = new SqlConnection(connStr))
                 {
                     sqlConnection.Open();
-                    using (SqlCommand sqlCommand = new SqlCommand("SELECT * FROM [book_issue_tbl] WHERE [member_id] = @member_id", sqlConnection))
+                    using (SqlCommand sqlCommand = new SqlCommand("SELECT [book_name] AS [Book Name], [issue_date] AS [Issue Date], [due_date] AS [Due Date] FROM [book_issue_tbl] WHERE [member_id] = @member_id", sqlConnection))
                     {
                         sqlCommand.Parameters.AddWithValue("@member_id", memberId);
                         using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand))

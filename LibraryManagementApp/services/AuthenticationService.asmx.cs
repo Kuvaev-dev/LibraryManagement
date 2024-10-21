@@ -26,6 +26,7 @@ namespace LibraryManagementApp.services
 
         private readonly string connStr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
 
+        [WebMethod]
         public AuthenticationResult VerifyUserCredentials(string username, string password)
         {
             try
@@ -67,6 +68,7 @@ namespace LibraryManagementApp.services
             return new AuthenticationResult { IsSuccess = false, ErrorMessage = "Invalid Credentials!" };
         }
 
+        [WebMethod]
         public AuthenticationResult VerifyAdminCredentials(string username, string password)
         {
             try

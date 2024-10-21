@@ -158,7 +158,8 @@
                         </div>
                         <div class="row mb-1">
                             <div class="col">
-                                <asp:GridView CssClass="table table-striped table-bordered" ID="GridView1" runat="server" OnRowDataBound="GridView1_RowDataBound"></asp:GridView>
+                                <asp:GridView CssClass="table table-striped table-bordered" ID="GridView1" runat="server" OnRowDataBound="GridView1_RowDataBound">
+                                </asp:GridView>
                             </div>
                         </div>
                     </div>

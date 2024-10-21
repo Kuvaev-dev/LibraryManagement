@@ -11,7 +11,6 @@ namespace LibraryManagementApp.helpers {
         {
             var serviceCollection = new ServiceCollection();
 
-            // Регистрация сервисов
             serviceCollection.AddTransient<IUserService, UserService>();
             serviceCollection.AddTransient<IAuthenticationService, AuthenticationService>();
             serviceCollection.AddTransient<IAuthorService, AuthorService>();
@@ -20,7 +19,6 @@ namespace LibraryManagementApp.helpers {
             serviceCollection.AddTransient<IMemberService, MemberService>();
             serviceCollection.AddTransient<IPublisherService, PublisherService>();
 
-            // Построение провайдера
             ServiceProvider = serviceCollection.BuildServiceProvider();
         }
     }
