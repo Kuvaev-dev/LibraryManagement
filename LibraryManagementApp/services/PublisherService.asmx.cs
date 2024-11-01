@@ -24,7 +24,7 @@ namespace LibraryManagementApp.services
     // [System.Web.Script.Services.ScriptService]
     public class PublisherService : WebService, IPublisherService
     {
-        private readonly string connStr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
+        private readonly string connStr = ConfigurationManager.ConnectionStrings["elibraryDBhosted"].ConnectionString;
 
         [WebMethod]
         public bool IsPublisherExists(string publisherId)

@@ -27,7 +27,7 @@ namespace LibraryManagementApp.services
     // [System.Web.Script.Services.ScriptService]
     public class UserService : WebService, IUserService
     {
-        private readonly string connStr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
+        private readonly string connStr = ConfigurationManager.ConnectionStrings["elibraryDBhosted"].ConnectionString;
 
         [WebMethod]
         public bool IsMemberExists(string username, string email)

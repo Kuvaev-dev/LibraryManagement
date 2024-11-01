@@ -24,7 +24,7 @@ namespace LibraryManagementApp.services
     public class AuthenticationService : System.Web.Services.WebService, IAuthenticationService
     {
 
-        private readonly string connStr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
+        private readonly string connStr = ConfigurationManager.ConnectionStrings["elibraryDBhosted"].ConnectionString;
 
         [WebMethod]
         public AuthenticationResult VerifyUserCredentials(string username, string password)

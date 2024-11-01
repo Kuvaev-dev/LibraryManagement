@@ -136,7 +136,7 @@
                             </div>
                         </div>
                         <div class="row mb-1">
-                            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:elibraryDB %>" SelectCommand="SELECT * FROM [member_master_tbl]"></asp:SqlDataSource>
+                            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:elibraryDBhosted %>" SelectCommand="SELECT * FROM [member_master_tbl]"></asp:SqlDataSource>
                             <div class="col">
                                 <div class="table-responsive">
                                     <asp:GridView CssClass="table table-striped table-bordered" ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="member_id" DataSourceID="SqlDataSource1">

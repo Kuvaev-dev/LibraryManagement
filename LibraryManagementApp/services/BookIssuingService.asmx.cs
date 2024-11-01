@@ -28,7 +28,7 @@ namespace LibraryManagementApp.services
     // [System.Web.Script.Services.ScriptService]
     public class BookIssuingService : System.Web.Services.WebService, IBookIssuingService
     {
-        private readonly string _connStr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
+        private readonly string _connStr = ConfigurationManager.ConnectionStrings["elibraryDBhosted"].ConnectionString;
 
         public bool IsBookExists(string bookId)
         {

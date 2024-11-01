@@ -28,7 +28,7 @@ namespace LibraryManagementApp.services
     // [System.Web.Script.Services.ScriptService]
     public class AuthorService : System.Web.Services.WebService, IAuthorService
     {
-        private readonly string connStr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
+        private readonly string connStr = ConfigurationManager.ConnectionStrings["elibraryDBhosted"].ConnectionString;
 
         [WebMethod]
         public List<Author> GetAuthors()

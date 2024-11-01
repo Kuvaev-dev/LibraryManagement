@@ -29,7 +29,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:elibraryDB %>" SelectCommand="SELECT * FROM [book_master_tbl]"></asp:SqlDataSource>
+                                            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:elibraryDBhosted %>" SelectCommand="SELECT * FROM [book_master_tbl]"></asp:SqlDataSource>
                                             <asp:GridView CssClass="table table-striped table-bordered" ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="book_id" DataSourceID="SqlDataSource1">
                                                 <Columns>
                                                     <asp:BoundField DataField="book_id" HeaderText="ID" ReadOnly="True" SortExpression="book_id" >

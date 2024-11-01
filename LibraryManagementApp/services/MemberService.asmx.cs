@@ -23,7 +23,7 @@ namespace LibraryManagementApp.services
     // [System.Web.Script.Services.ScriptService]
     public class MemberService : WebService, IMemberService
     {
-        private readonly string connStr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
+        private readonly string connStr = ConfigurationManager.ConnectionStrings["elibraryDBhosted"].ConnectionString;
 
         [WebMethod]
         public bool IsMemberExists(string memberId)
