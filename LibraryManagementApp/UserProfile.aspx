@@ -65,15 +65,39 @@
                             </div>
                         </div>
                         <div class="row mb-1">
-                            <div class="col-md-4">
-                                <label>State</label>
-                                <div class="form-group">
-                                    <asp:DropDownList ID="DropDownList1" CssClass="form-control" runat="server">
-                                        <asp:ListItem Text="Select" Value="select" />
-                                    </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="rfvState" runat="server" ControlToValidate="DropDownList1" InitialValue="select" ErrorMessage="State is required." CssClass="text-danger" Display="Dynamic" />
-                                </div>
+                           <div class="col-md-4">
+                            <label>State</label>
+                            <div class="form-group">
+                                <asp:DropDownList ID="DropDownList1" CssClass="form-control" runat="server">
+                                    <asp:ListItem Value="select" Text="Select Region" />
+                                    <asp:ListItem Value="1" Text="Vinnytsia" />
+                                    <asp:ListItem Value="2" Text="Volyn" />
+                                    <asp:ListItem Value="3" Text="Dnipropetrovsk" />
+                                    <asp:ListItem Value="4" Text="Donetsk" />
+                                    <asp:ListItem Value="5" Text="Zhytomyr" />
+                                    <asp:ListItem Value="6" Text="Zakarpattia" />
+                                    <asp:ListItem Value="7" Text="Zaporizhzhia" />
+                                    <asp:ListItem Value="8" Text="Ivano-Frankivsk" />
+                                    <asp:ListItem Value="9" Text="Kyiv" />
+                                    <asp:ListItem Value="10" Text="Kirovohrad" />
+                                    <asp:ListItem Value="11" Text="Luhansk" />
+                                    <asp:ListItem Value="12" Text="Lviv" />
+                                    <asp:ListItem Value="13" Text="Mykolaiv" />
+                                    <asp:ListItem Value="14" Text="Odesa" />
+                                    <asp:ListItem Value="15" Text="Poltava" />
+                                    <asp:ListItem Value="16" Text="Rivne" />
+                                    <asp:ListItem Value="17" Text="Sumy" />
+                                    <asp:ListItem Value="18" Text="Ternopil" />
+                                    <asp:ListItem Value="19" Text="Kharkiv" />
+                                    <asp:ListItem Value="20" Text="Kherson" />
+                                    <asp:ListItem Value="21" Text="Khmelnytskyi" />
+                                    <asp:ListItem Value="22" Text="Cherkasy" />
+                                    <asp:ListItem Value="23" Text="Chernihiv" />
+                                    <asp:ListItem Value="24" Text="Chernivtsi" />
+                                </asp:DropDownList>
+                                <asp:RequiredFieldValidator ID="rfvState" runat="server" ControlToValidate="DropDownList1" InitialValue="select" ErrorMessage="State is required." CssClass="text-danger" Display="Dynamic" />
                             </div>
+                        </div>
                             <div class="col-md-4">
                                 <label>City</label>
                                 <div class="form-group">
@@ -107,19 +131,13 @@
                             </div>
                         </div>
                         <div class="row mb-1">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label>User ID</label>
                                 <div class="form-group">
                                     <asp:TextBox ID="TextBox8" CssClass="form-control" placeholder="User  ID" runat="server" ReadOnly="true"></asp:TextBox>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <label>Old Password</label>
-                                <div class="form-group">
-                                    <asp:TextBox ID="TextBox9" CssClass="form-control" placeholder="Old Password" TextMode="Password" runat="server" ReadOnly="true"></asp:TextBox>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label>New Password</label>
                                 <div class="form-group">
                                     <asp:TextBox ID="TextBox10" CssClass="form-control" placeholder="New Password" TextMode="Password" runat="server"></asp:TextBox>

@@ -68,13 +68,21 @@
                                 <label>Language</label>
                                 <div class="form-group">
                                     <asp:DropDownList ID="DropDownList1" CssClass="form-control" runat="server">
-                                        <asp:ListItem Text="Ukrainian" Value="Ukrainian"></asp:ListItem>
+                                        <asp:ListItem Text="Ukrainian" Value="uk"></asp:ListItem>
+                                        <asp:ListItem Text="English" Value="en"></asp:ListItem>
+                                        <asp:ListItem Text="Spanish" Value="es"></asp:ListItem>
+                                        <asp:ListItem Text="French" Value="fr"></asp:ListItem>
+                                        <asp:ListItem Text="German" Value="de"></asp:ListItem>
+                                        <asp:ListItem Text="Italian" Value="it"></asp:ListItem>
+                                        <asp:ListItem Text="Polish" Value="pl"></asp:ListItem>
+                                        <asp:ListItem Text="Russian" Value="ru"></asp:ListItem>
+                                        <asp:ListItem Text="Chinese" Value="zh"></asp:ListItem>
+                                        <asp:ListItem Text="Japanese" Value="ja"></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
                                 <label>Publisher Name</label>
                                 <div class="form-group">
                                     <asp:DropDownList ID="DropDownList2" CssClass="form-control" runat="server">
-                                        <asp:ListItem Text="Some Publisher" Value="Some Publisher"></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
                             </div>
@@ -82,7 +90,6 @@
                                 <label>Author Name</label>
                                 <div class="form-group">
                                     <asp:DropDownList ID="DropDownList3" CssClass="form-control" runat="server">
-                                        <asp:ListItem Text="Some Author" Value="Some Author"></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
                                 <label>Publish Date</label>
@@ -91,13 +98,27 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <label>Genre</label>
-                                <div class="form-group">
-                                    <asp:ListBox ID="ListBox1" runat="server" SelectionMode="Multiple" CssClass="form-control">
-                                        <asp:ListItem Text="Some Genre" Value="Some Genre" />
-                                    </asp:ListBox>
-                                </div>
+                            <label>Genre</label>
+                            <div class="form-group">
+                                <asp:ListBox ID="ListBox1" runat="server" SelectionMode="Multiple" CssClass="form-control">
+                                    <asp:ListItem Text="Fantasy" Value="Fantasy" />
+                                    <asp:ListItem Text="Science Fiction" Value="Science Fiction" />
+                                    <asp:ListItem Text="Mystery" Value="Mystery" />
+                                    <asp:ListItem Text="Romance" Value="Romance" />
+                                    <asp:ListItem Text="Thriller" Value="Thriller" />
+                                    <asp:ListItem Text="Historical" Value="Historical" />
+                                    <asp:ListItem Text="Horror" Value="Horror" />
+                                    <asp:ListItem Text="Adventure" Value="Adventure" />
+                                    <asp:ListItem Text="Drama" Value="Drama" />
+                                    <asp:ListItem Text="Poetry" Value="Poetry" />
+                                    <asp:ListItem Text="Non-Fiction" Value="Non-Fiction" />
+                                    <asp:ListItem Text="Biography" Value="Biography" />
+                                    <asp:ListItem Text="Self-Help" Value="Self-Help" />
+                                    <asp:ListItem Text="Young Adult" Value="Young Adult" />
+                                    <asp:ListItem Text="Children's" Value="Children's" />
+                                </asp:ListBox>
                             </div>
+                        </div>
                         </div>
                         <div class="row mb-1">
                             <div class="col-md-4">

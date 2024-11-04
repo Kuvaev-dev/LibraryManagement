@@ -33,6 +33,8 @@ namespace LibraryManagementApp
                     Session["role"] = "user";
                     Session["status"] = result.Status;
                     Session["member_id"] = result.MemberId;
+
+                    Response.Redirect("Home.aspx");
                 }
                 else
                 {
