@@ -77,7 +77,6 @@ namespace LibraryManagementApp
                     TextBox7.Text = member.Pincode;
                     TextBox5.Text = member.FullAddress;
                     TextBox8.Text = member.Username;
-                    TextBox9.Text = member.Password;
 
                     Label1.Text = member.AccountStatus;
                     switch (member.AccountStatus)
@@ -105,8 +104,6 @@ namespace LibraryManagementApp
 
         private void UpdateUserPersonalDetails()
         {
-            string password = string.IsNullOrEmpty(TextBox10.Text.Trim()) ? TextBox9.Text.Trim() : TextBox10.Text.Trim();
-
             try
             {
                 var member = new Member
@@ -119,7 +116,7 @@ namespace LibraryManagementApp
                     City = TextBox6.Text.Trim(),
                     Pincode = TextBox7.Text.Trim(),
                     FullAddress = TextBox5.Text.Trim(),
-                    Password = password,
+                    Password = string.IsNullOrEmpty(TextBox10.Text.Trim()) ? Session["username"].ToString() : TextBox10.Text.Trim(),
                     Username = Session["username"].ToString(),
                     AccountStatus = "pending"
                 };

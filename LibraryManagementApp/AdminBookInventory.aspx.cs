@@ -14,7 +14,7 @@ namespace LibraryManagementApp
     public partial class AdminBookInventory : System.Web.UI.Page
     {
         private readonly IBookService _bookService;
-        private readonly string _connStr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
+        private readonly string _connStr = ConfigurationManager.ConnectionStrings["elibraryDBhosted"].ConnectionString;
 
         public AdminBookInventory()
         {
@@ -172,32 +172,30 @@ namespace LibraryManagementApp
         {
             try
             {
-                if (!(Cache["Authors"] is DataTable authorsTable) || !(Cache["Publishers"] is DataTable publishersTable))
+                DataTable authorsTable;
+                DataTable publishersTable;
+
+                using (SqlConnection sqlConnection = new SqlConnection(_connStr))
                 {
-                    using (SqlConnection sqlConnection = new SqlConnection(_connStr))
+                    sqlConnection.Open();
+
+                    // Load authors
+                    using (SqlCommand sqlCommand = new SqlCommand("SELECT [author_name] FROM [author_master_tbl];", sqlConnection))
                     {
-                        sqlConnection.Open();
-
-                        // Load authors
-                        using (SqlCommand sqlCommand = new SqlCommand("SELECT [author_name] FROM [author_master_tbl];", sqlConnection))
+                        using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand))
                         {
-                            using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand))
-                            {
-                                authorsTable = new DataTable();
-                                sqlDataAdapter.Fill(authorsTable);
-                                Cache.Insert("Authors", authorsTable, null, DateTime.Now.AddMinutes(10), System.Web.Caching.Cache.NoSlidingExpiration);
-                            }
+                            authorsTable = new DataTable();
+                            sqlDataAdapter.Fill(authorsTable);
                         }
+                    }
 
-                        // Load publishers
-                        using (SqlCommand sqlCommand = new SqlCommand("SELECT [publisher_name] FROM [publisher_master_tbl];", sqlConnection))
+                    // Load publishers
+                    using (SqlCommand sqlCommand = new SqlCommand("SELECT [publisher_name] FROM [publisher_master_tbl];", sqlConnection))
+                    {
+                        using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand))
                         {
-                            using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand))
-                            {
-                                publishersTable = new DataTable();
-                                sqlDataAdapter.Fill(publishersTable);
-                                Cache.Insert("Publishers", publishersTable, null, DateTime.Now.AddMinutes(10), System.Web.Caching.Cache.NoSlidingExpiration);
-                            }
+                            publishersTable = new DataTable();
+                            sqlDataAdapter.Fill(publishersTable);
                         }
                     }
                 }

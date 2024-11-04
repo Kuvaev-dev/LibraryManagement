@@ -143,8 +143,11 @@ namespace LibraryManagementApp.services
                 using (SqlConnection sqlConnection = new SqlConnection(connStr))
                 {
                     sqlConnection.Open();
-                    using (SqlCommand sqlCommand = new SqlCommand($"UPDATE [member_master_tbl] SET [username] = @username, [full_name] = @full_name, [dob] = @dob, [contact_no] = @contact_no, [email] = @email, [state] = @state, [city] = @city, [pincode] = @pincode, [full_address] = @full_address, [password] = @password, [account_status] = @account_status WHERE [member_id] = {member_id}", sqlConnection))
+                    using (SqlCommand sqlCommand = new SqlCommand($"UPDATE [member_master_tbl] SET [username] = @username, [full_name] = @full_name, [dob] = @dob, [contact_no] = @contact_no, [email] = @email, [state] = @state, [city] = @city, [pincode] = @pincode, [full_address] = @full_address, [password_hash] = @password_hash, [password_salt] = @password_salt, [account_status] = @account_status WHERE [member_id] = {member_id}", sqlConnection))
                     {
+                        string salt;
+                        string hashedPassword = PasswordHelper.HashPassword(member.Password, out salt);
+
                         sqlCommand.Parameters.AddWithValue("@username", member.Username);
                         sqlCommand.Parameters.AddWithValue("@full_name", member.FullName);
                         sqlCommand.Parameters.AddWithValue("@dob", member.DOB);
@@ -154,7 +157,8 @@ namespace LibraryManagementApp.services
                         sqlCommand.Parameters.AddWithValue("@city", member.City);
                         sqlCommand.Parameters.AddWithValue("@pincode", member.Pincode);
                         sqlCommand.Parameters.AddWithValue("@full_address", member.FullAddress);
-                        sqlCommand.Parameters.AddWithValue("@password", member.Password);
+                        sqlCommand.Parameters.AddWithValue("@password_hash", hashedPassword);
+                        sqlCommand.Parameters.AddWithValue("@password_salt", salt);
                         sqlCommand.Parameters.AddWithValue("@account_status", "pending");
 
                         int result = sqlCommand.ExecuteNonQuery();
