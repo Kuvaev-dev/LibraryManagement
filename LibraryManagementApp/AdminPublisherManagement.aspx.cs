@@ -4,14 +4,9 @@ using LibraryManagementApp.services;
 
 namespace LibraryManagementApp
 {
-    public partial class AdminPublisherManagement : System.Web.UI.Page
+    public partial class AdminPublisherManagement : DIPage
     {
         private readonly IPublisherService _publisherService;
-
-        public AdminPublisherManagement()
-        {
-            _publisherService = (IPublisherService)ServiceProviderConfig.ServiceProvider.GetService(typeof(IPublisherService));
-        }
 
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -8,14 +8,9 @@ using LibraryManagementApp.models;
 
 namespace LibraryManagementApp
 {
-    public partial class UserProfile : System.Web.UI.Page
+    public partial class UserProfile : DIPage
     {
         private readonly IUserService _userService;
-
-        public UserProfile()
-        {
-            _userService = (IUserService)ServiceProviderConfig.ServiceProvider.GetService(typeof(IUserService));
-        }
 
         protected void Page_Load(object sender, EventArgs e)
         {

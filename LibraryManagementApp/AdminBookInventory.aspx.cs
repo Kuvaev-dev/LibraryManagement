@@ -11,15 +11,10 @@ using System.Web.UI.WebControls;
 
 namespace LibraryManagementApp
 {
-    public partial class AdminBookInventory : System.Web.UI.Page
+    public partial class AdminBookInventory : DIPage
     {
         private readonly IBookService _bookService;
         private readonly string _connStr = ConfigurationManager.ConnectionStrings["elibraryDBhosted"].ConnectionString;
-
-        public AdminBookInventory()
-        {
-            _bookService = (IBookService)ServiceProviderConfig.ServiceProvider.GetService(typeof(IBookService));
-        }
 
         protected void Page_Load(object sender, EventArgs e)
         {

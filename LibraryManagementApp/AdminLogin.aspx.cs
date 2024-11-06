@@ -4,14 +4,9 @@ using System;
 
 namespace LibraryManagementApp
 {
-    public partial class AdminLogin : System.Web.UI.Page
+    public partial class AdminLogin : DIPage
     {
         private readonly IAuthenticationService _authService;
-
-        public AdminLogin()
-        {
-            _authService = (IAuthenticationService)ServiceProviderConfig.ServiceProvider.GetService(typeof(IAuthenticationService));
-        }
 
         protected void Page_Load(object sender, EventArgs e)
         {

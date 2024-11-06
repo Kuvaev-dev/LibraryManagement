@@ -5,14 +5,9 @@ using LibraryManagementApp.services;
 
 namespace LibraryManagementApp
 {
-    public partial class AdminAuthorManagement : System.Web.UI.Page
+    public partial class AdminAuthorManagement : DIPage
     {
         private readonly IAuthorService _authorService;
-
-        public AdminAuthorManagement()
-        {
-            _authorService = (IAuthorService)ServiceProviderConfig.ServiceProvider.GetService(typeof(IAuthorService));
-        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
