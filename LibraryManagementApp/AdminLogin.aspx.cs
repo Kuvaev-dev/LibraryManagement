@@ -6,7 +6,7 @@ namespace LibraryManagementApp
 {
     public partial class AdminLogin : DIPage
     {
-        private readonly IAuthenticationService _authService;
+        public IAuthenticationService _authService { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {

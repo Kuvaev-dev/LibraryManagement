@@ -6,7 +6,7 @@ namespace LibraryManagementApp
 {
     public partial class AdminMemberManagement : DIPage
     {
-        private readonly IMemberService _memberService;
+        public IMemberService _memberService { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -7,7 +7,7 @@ namespace LibraryManagementApp
 {
     public partial class AdminAuthorManagement : DIPage
     {
-        private readonly IAuthorService _authorService;
+        public IAuthorService _authorService { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {

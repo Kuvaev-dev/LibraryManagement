@@ -13,7 +13,7 @@ namespace LibraryManagementApp
 {
     public partial class AdminBookInventory : DIPage
     {
-        private readonly IBookService _bookService;
+        public IBookService _bookService { get; set; }
         private readonly string _connStr = ConfigurationManager.ConnectionStrings["elibraryDBhosted"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)

@@ -10,7 +10,7 @@ namespace LibraryManagementApp
 {
     public partial class UserProfile : DIPage
     {
-        private readonly IUserService _userService;
+        public IUserService _userService { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {

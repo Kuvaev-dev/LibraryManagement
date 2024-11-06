@@ -6,7 +6,7 @@ namespace LibraryManagementApp
 {
     public partial class AdminBookIssuing : DIPage
     {
-        private readonly IBookIssuingService _bookIssuingService;
+        public IBookIssuingService _bookIssuingService { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
