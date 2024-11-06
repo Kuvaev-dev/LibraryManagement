@@ -4,14 +4,9 @@ using System;
 
 namespace LibraryManagementApp
 {
-    public partial class AdminBookIssuing : System.Web.UI.Page
+    public partial class AdminBookIssuing : DIPage
     {
-        private readonly IBookIssuingService _bookIssuingService;
-
-        public AdminBookIssuing()
-        {
-            _bookIssuingService = (IBookIssuingService)ServiceProviderConfig.ServiceProvider.GetService(typeof(IBookIssuingService));
-        }
+        public IBookIssuingService _bookIssuingService { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {

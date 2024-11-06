@@ -5,14 +5,9 @@ using System;
 
 namespace LibraryManagementApp
 {
-    public partial class UserSignUp : System.Web.UI.Page
+    public partial class UserSignUp : DIPage
     {
-        private readonly IUserService _userService;
-
-        public UserSignUp()
-        {
-            _userService = (IUserService)ServiceProviderConfig.ServiceProvider.GetService(typeof(IUserService));
-        }
+        public IUserService _userService { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {

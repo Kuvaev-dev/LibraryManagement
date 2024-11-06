@@ -4,14 +4,9 @@ using System;
 
 namespace LibraryManagementApp
 {
-    public partial class AdminMemberManagement : System.Web.UI.Page
+    public partial class AdminMemberManagement : DIPage
     {
-        private readonly IMemberService _memberService;
-
-        public AdminMemberManagement()
-        {
-            _memberService = (IMemberService)ServiceProviderConfig.ServiceProvider.GetService(typeof(IMemberService));
-        }
+        public IMemberService _memberService { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
