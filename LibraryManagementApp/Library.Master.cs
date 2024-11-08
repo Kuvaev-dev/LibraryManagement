@@ -65,47 +65,47 @@ namespace LibraryManagementApp
         // Navigation
         protected void LinkButton6_Click(object sender, EventArgs e)
         {
-            Response.Redirect("AdminLogin.aspx");
+            Response.Redirect("admin-login");
         }
 
         protected void LinkButton11_Click(object sender, EventArgs e)
         {
-            Response.Redirect("AdminAuthorManagement.aspx");
+            Response.Redirect("authors");
         }
 
         protected void LinkButton12_Click(object sender, EventArgs e)
         {
-            Response.Redirect("AdminPublisherManagement.aspx");
+            Response.Redirect("publishers");
         }
 
         protected void LinkButton8_Click(object sender, EventArgs e)
         {
-            Response.Redirect("AdminBookInventory.aspx");
+            Response.Redirect("book-inventory");
         }
 
         protected void LinkButton9_Click(object sender, EventArgs e)
         {
-            Response.Redirect("AdminBookIssuing.aspx");
+            Response.Redirect("book-issuing");
         }
 
         protected void LinkButton10_Click(object sender, EventArgs e)
         {
-            Response.Redirect("AdminMemberManagement.aspx");
+            Response.Redirect("members");
         }
 
         protected void LinkButton1_Click(object sender, EventArgs e)
         {
-            Response.Redirect("UserLogin.aspx");
+            Response.Redirect("login");
         }
 
         protected void LinkButton2_Click(object sender, EventArgs e)
         {
-            Response.Redirect("UserSignUp.aspx");
+            Response.Redirect("sign-up");
         }
 
         protected void LinkButton4_Click(object sender, EventArgs e)
         {
-            Response.Redirect("ViewBooks.aspx");
+            Response.Redirect("books");
         }
 
         // Logout
@@ -128,13 +128,13 @@ namespace LibraryManagementApp
             LinkButton9.Visible = false; // Book Issuing Link Button
             LinkButton10.Visible = false; // Member Management Link Button
 
-            Response.Redirect("Home.aspx");
+            Response.Redirect("home");
         }
 
         // View Profile
         protected void LinkButton7_Click(object sender, EventArgs e)
         {
-            Response.Redirect("UserProfile.aspx");
+            Response.Redirect("profile");
         }
     }
 }

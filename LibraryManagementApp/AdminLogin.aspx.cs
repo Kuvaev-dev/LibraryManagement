@@ -4,9 +4,14 @@ using System;
 
 namespace LibraryManagementApp
 {
-    public partial class AdminLogin : DIPage
+    public partial class AdminLogin : System.Web.UI.Page
     {
-        public IAuthenticationService _authService { get; set; }
+        private readonly IAuthenticationService _authService;
+
+        public AdminLogin(IAuthenticationService authService)
+        {
+            _authService = authService;
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -25,7 +30,7 @@ namespace LibraryManagementApp
                     Session["fullname"] = result.FullName;
                     Session["role"] = "admin";
 
-                    Response.Redirect("Home.aspx");
+                    Response.Redirect("home");
                 }
                 else
                 {
