@@ -1,13 +1,17 @@
 ﻿using System;
-using LibraryManagementApp.helpers;
 using LibraryManagementApp.models;
 using LibraryManagementApp.services;
 
 namespace LibraryManagementApp
 {
-    public partial class AdminAuthorManagement : DIPage
+    public partial class AdminAuthorManagement : System.Web.UI.Page
     {
-        public IAuthorService _authorService { get; set; }
+        private readonly IAuthorService _authorService;
+
+        public AdminAuthorManagement(IAuthorService authorService)
+        {
+            _authorService = authorService;
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {

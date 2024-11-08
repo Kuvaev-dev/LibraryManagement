@@ -4,9 +4,14 @@ using System;
 
 namespace LibraryManagementApp
 {
-    public partial class UserLogin : DIPage
+    public partial class UserLogin : System.Web.UI.Page
     {
-        public IAuthenticationService _authService { get; set; }
+        private readonly IAuthenticationService _authService;
+
+        public UserLogin(IAuthenticationService authService)
+        {
+            _authService = authService;
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -19,7 +24,7 @@ namespace LibraryManagementApp
             {
                 var result = _authService.VerifyUserCredentials(TextBox1.Text.Trim(), TextBox2.Text.Trim());
 
-                if (result.IsSuccess)
+                if (result.IsSuccess && result.Status != "Deactive")
                 {
                     Response.Write("<script>alert('Login Successful')</script>");
 
@@ -29,7 +34,12 @@ namespace LibraryManagementApp
                     Session["status"] = result.Status;
                     Session["member_id"] = result.MemberId;
 
-                    Response.Redirect("Home.aspx");
+                    Response.Redirect("home");
+                }
+                else if (result.Status == "Deactive")
+                {
+                    Response.Write("<script>alert('Your Profile Is Inactive')</script>");
+                    Response.Redirect("home");
                 }
                 else
                 {

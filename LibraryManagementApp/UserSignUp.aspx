@@ -149,7 +149,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="Home.aspx" class="d-block text-center mt-3 mb-3"><< Back to Home</a>
+                <a href="home" class="d-block text-center mt-3 mb-3"><< Back to Home</a>
             </div>
         </div>
     </div>

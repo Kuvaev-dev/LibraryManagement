@@ -3,21 +3,25 @@ using System.Data;
 using System.Web.UI.WebControls;
 using System.Drawing;
 using LibraryManagementApp.services;
-using LibraryManagementApp.helpers;
 using LibraryManagementApp.models;
 
 namespace LibraryManagementApp
 {
-    public partial class UserProfile : DIPage
+    public partial class UserProfile : System.Web.UI.Page
     {
-        public IUserService _userService { get; set; }
+        private readonly IUserService _userService;
+
+        public UserProfile(IUserService userService)
+        {
+            _userService = userService;
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["username"] == null || string.IsNullOrEmpty(Session["username"].ToString()))
             {
                 Response.Write("<script>alert('Session Expired! Login Again!')</script>");
-                Response.Redirect("UserLogin.aspx");
+                Response.Redirect("login");
             }
             else
             {
@@ -34,7 +38,7 @@ namespace LibraryManagementApp
             if (Session["username"] == null || string.IsNullOrEmpty(Session["username"].ToString()))
             {
                 Response.Write("<script>alert('Session Expired! Login Again!')</script>");
-                Response.Redirect("UserLogin.aspx");
+                Response.Redirect("login");
             }
             else
             {

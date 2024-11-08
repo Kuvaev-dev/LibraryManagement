@@ -108,7 +108,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="Home.aspx"><< Back to Home</a>
+                <a href="home"><< Back to Home</a>
             </div>
         </div>
     </div>
