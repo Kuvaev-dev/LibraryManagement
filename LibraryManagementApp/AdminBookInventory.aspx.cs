@@ -1,11 +1,8 @@
-﻿using LibraryManagementApp.helpers;
+﻿using LibraryManagementApp.repositories;
 using LibraryManagementApp.services;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
-using System.IO;
 using System.Linq;
 using System.Web.UI.WebControls;
 
@@ -14,11 +11,14 @@ namespace LibraryManagementApp
     public partial class AdminBookInventory : System.Web.UI.Page
     {
         private readonly IBookService _bookService;
-        private readonly string _connStr = ConfigurationManager.ConnectionStrings["elibraryDBhosted"].ConnectionString;
+        private readonly IAuthorPublisherRepository _authorPublisherRepository;
+        private readonly IFileUploadRepository _fileUploadRepository;
 
-        public AdminBookInventory(IBookService bookService)
+        public AdminBookInventory(IBookService bookService, IAuthorPublisherRepository authorPublisherRepository, IFileUploadRepository fileUploadRepository)
         {
             _bookService = bookService;
+            _authorPublisherRepository = authorPublisherRepository;
+            _fileUploadRepository = fileUploadRepository;
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -29,59 +29,37 @@ namespace LibraryManagementApp
             GridView1.DataBind();
         }
 
+        private void FillAuthorPublisherValues()
+        {
+            try
+            {
+                var (authorsTable, publishersTable) = _authorPublisherRepository.GetAuthorPublisherData();
+
+                DropDownList3.DataSource = authorsTable;
+                DropDownList3.DataValueField = "author_name";
+                DropDownList3.DataBind();
+
+                DropDownList2.DataSource = publishersTable;
+                DropDownList2.DataValueField = "publisher_name";
+                DropDownList2.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Response.Write($"<script>alert('Error: {ex.Message}')</script>");
+            }
+        }
+
         // Add
         protected void Button2_Click(object sender, EventArgs e)
         {
             if (_bookService.IsBookExists(TextBox1.Text.Trim(), TextBox2.Text.Trim()))
-                Response.Write("<script>alert('Book Already Exists!')</script>");
-            else
             {
-                if (ValidateInputs())
-                {
-                    var bookDetails = new Dictionary<string, string>
-                    {
-                        {"book_id", TextBox1.Text.Trim()},
-                        {"book_name", TextBox2.Text.Trim()},
-                        {"genre", string.Join(",", ListBox1.Items.Cast<ListItem>().Where(i => i.Selected).Select(i => i.Value))},
-                        {"author_name", DropDownList3.SelectedItem.Value},
-                        {"publisher_name", DropDownList2.SelectedItem.Value},
-                        {"publish_date", TextBox3.Text.Trim()},
-                        {"language", DropDownList1.SelectedItem.Value},
-                        {"edition", TextBox9.Text.Trim()},
-                        {"book_cost", TextBox10.Text.Trim()},
-                        {"no_of_pages", TextBox11.Text.Trim()},
-                        {"book_description", TextBox6.Text.Trim()},
-                        {"actual_stock", TextBox4.Text.Trim()},
-                        {"current_stock", TextBox5.Text.Trim()}
-                    };
-
-                    string filePath = "~/book_inventory/book1.png";
-                    if (FileUpload1.HasFile)
-                    {
-                        string fileName = Path.GetFileName(FileUpload1.PostedFile.FileName);
-                        FileUpload1.SaveAs(Server.MapPath("book_inventory/" + fileName));
-                        filePath = "~/book_inventory/" + fileName;
-                    }
-
-                    if (_bookService.AddNewBook(bookDetails, filePath))
-                    {
-                        Response.Write("<script>alert('Book Added Successfully!')</script>");
-                        GridView1.DataBind();
-                    }
-                    else
-                    {
-                        Response.Write("<script>alert('Error adding book')</script>");
-                    }
-                }
+                Response.Write("<script>alert('Book Already Exists!')</script>");
+                return;
             }
-        }
 
-        // Update
-        protected void Button3_Click(object sender, EventArgs e)
-        {
             if (ValidateInputs())
             {
-
                 var bookDetails = new Dictionary<string, string>
                 {
                     {"book_id", TextBox1.Text.Trim()},
@@ -99,13 +77,45 @@ namespace LibraryManagementApp
                     {"current_stock", TextBox5.Text.Trim()}
                 };
 
-                string filePath = "~/book_inventory/book1.png";
-                if (FileUpload1.HasFile)
+                string filePath = _fileUploadRepository.SaveUploadedFile(FileUpload1, "~/book_inventory/");
+                imgview.ImageUrl = filePath;
+
+                if (_bookService.AddNewBook(bookDetails, filePath))
                 {
-                    string fileName = Path.GetFileName(FileUpload1.PostedFile.FileName);
-                    FileUpload1.SaveAs(Server.MapPath("book_inventory/" + fileName));
-                    filePath = "~/book_inventory/" + fileName;
+                    Response.Write("<script>alert('Book Added Successfully!')</script>");
+                    GridView1.DataBind();
                 }
+                else
+                {
+                    Response.Write("<script>alert('Error adding book')</script>");
+                }
+            }
+        }
+
+        // Update
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+            if (ValidateInputs())
+            {
+                var bookDetails = new Dictionary<string, string>
+                {
+                    {"book_id", TextBox1.Text.Trim()},
+                    {"book_name", TextBox2.Text.Trim()},
+                    {"genre", string.Join(",", ListBox1.Items.Cast<ListItem>().Where(i => i.Selected).Select(i => i.Value))},
+                    {"author_name", DropDownList3.SelectedItem.Value},
+                    {"publisher_name", DropDownList2.SelectedItem.Value},
+                    {"publish_date", TextBox3.Text.Trim()},
+                    {"language", DropDownList1.SelectedItem.Value},
+                    {"edition", TextBox9.Text.Trim()},
+                    {"book_cost", TextBox10.Text.Trim()},
+                    {"no_of_pages", TextBox11.Text.Trim()},
+                    {"book_description", TextBox6.Text.Trim()},
+                    {"actual_stock", TextBox4.Text.Trim()},
+                    {"current_stock", TextBox5.Text.Trim()}
+                };
+
+                string filePath = _fileUploadRepository.SaveUploadedFile(FileUpload1, "~/book_inventory/");
+                imgview.ImageUrl = filePath;
 
                 if (_bookService.UpdateBook(bookDetails, filePath))
                 {
@@ -165,52 +175,6 @@ namespace LibraryManagementApp
             else
             {
                 Response.Write("<script>alert('Invalid Book ID!')</script>");
-            }
-        }
-
-        private void FillAuthorPublisherValues()
-        {
-            try
-            {
-                DataTable authorsTable;
-                DataTable publishersTable;
-
-                using (SqlConnection sqlConnection = new SqlConnection(_connStr))
-                {
-                    sqlConnection.Open();
-
-                    // Load authors
-                    using (SqlCommand sqlCommand = new SqlCommand("SELECT [author_name] FROM [author_master_tbl];", sqlConnection))
-                    {
-                        using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand))
-                        {
-                            authorsTable = new DataTable();
-                            sqlDataAdapter.Fill(authorsTable);
-                        }
-                    }
-
-                    // Load publishers
-                    using (SqlCommand sqlCommand = new SqlCommand("SELECT [publisher_name] FROM [publisher_master_tbl];", sqlConnection))
-                    {
-                        using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand))
-                        {
-                            publishersTable = new DataTable();
-                            sqlDataAdapter.Fill(publishersTable);
-                        }
-                    }
-                }
-
-                DropDownList3.DataSource = authorsTable;
-                DropDownList3.DataValueField = "author_name";
-                DropDownList3.DataBind();
-
-                DropDownList2.DataSource = publishersTable;
-                DropDownList2.DataValueField = "publisher_name";
-                DropDownList2.DataBind();
-            }
-            catch (Exception ex)
-            {
-                Response.Write($"<script>alert('Error: {ex.Message}')</script>");
             }
         }
 
