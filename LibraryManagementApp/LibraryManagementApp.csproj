@@ -2322,6 +2322,8 @@
     <Compile Include="models\Member.cs" />
     <Compile Include="models\UserLoginResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="repositories\AuthorPublisherRepository.cs" />
+    <Compile Include="repositories\FileUploadRepository.cs" />
     <Compile Include="services\AuthenticationService.asmx.cs">
       <DependentUpon>AuthenticationService.asmx</DependentUpon>
       <SubType>Component</SubType>

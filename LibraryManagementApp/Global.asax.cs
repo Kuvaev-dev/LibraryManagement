@@ -3,6 +3,7 @@ using Microsoft.AspNet.WebFormsDependencyInjection.Unity;
 using Unity;
 using System;
 using System.Web.Routing;
+using LibraryManagementApp.repositories;
 
 namespace LibraryManagementApp
 {
@@ -20,6 +21,9 @@ namespace LibraryManagementApp
             container.RegisterType<IBookService, BookService>();
             container.RegisterType<IMemberService, MemberService>();
             container.RegisterType<IPublisherService, PublisherService>();
+
+            container.RegisterType<IAuthorPublisherRepository, AuthorPublisherRepository>();
+            container.RegisterType<IFileUploadRepository, FileUploadRepository>();
 
             RegisterRoutes(RouteTable.Routes);
         }

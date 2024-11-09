@@ -10,7 +10,7 @@
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function (e) {
-                    $('#imgview').attr('src', e.target.result);
+                    $('#<%= imgview.ClientID %>').attr('src', e.target.result);
                 };
                 reader.readAsDataURL(input.files[0]);
             }
@@ -30,7 +30,7 @@
                         </div>
                         <div class="row mb-1">
                             <div class="col text-center">
-                                <img id="imgview" src="book_inventory/books.png" style="width:100px; height:150px;" class="mb-3" />
+                                <asp:Image ID="imgview" ClientIDMode="Static" runat="server" Width="100px" Height="150px" ImageUrl="~/book_inventory/books1.png" />
                             </div>
                         </div>
                         <div class="row mb-1">
